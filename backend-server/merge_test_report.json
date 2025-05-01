@@ -1,0 +1,79 @@
+{
+  "teamId": 24,
+  "isNation": false,
+  "analysisDate": "2025-05-01T13:37:01.142Z",
+  "mostUsedFormation": "4231",
+  "recommendedLineup": [
+    {
+      "name": "桑切斯",
+      "number": 1,
+      "matches": 2,
+      "starts": 2,
+      "positions": {
+        "GK": 2
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 180,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "recommendedPosition": "GK"
+    },
+    {
+      "name": "科尔威尔",
+      "number": 6,
+      "matches": 2,
+      "starts": 2,
+      "positions": {
+        "CB": 2
+      },
+      "goals": 1,
+      "assists": 0,
+      "minutesPlayed": 180,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [
+        "列维·科尔威尔"
+      ],
+      "recommendedPosition": "LB"
+    }
+  ],
+  "players": {
+    "1": {
+      "name": "桑切斯",
+      "number": 1,
+      "matches": 2,
+      "starts": 2,
+      "positions": {
+        "GK": 2
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 180,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": []
+    },
+    "6": {
+      "name": "科尔威尔",
+      "number": 6,
+      "matches": 2,
+      "starts": 2,
+      "positions": {
+        "CB": 2
+      },
+      "goals": 1,
+      "assists": 0,
+      "minutesPlayed": 180,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [
+        "列维·科尔威尔"
+      ]
+    }
+  },
+  "formationStats": {
+    "4231": 2
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "standard": {
+    "6": {
+      "name": "科尔威尔",
+      "number": 6,
+      "matches": 3,
+      "starts": 2,
+      "alternativeNames": [
+        "列维·科尔威尔"
+      ]
+    }
+  },
+  "postIncrement": {
+    "6": {
+      "name": "科尔威尔",
+      "number": 6,
+      "matches": 3,
+      "starts": 2,
+      "alternativeNames": [
+        "列维·科尔威尔"
+      ]
+    }
+  },
+  "preIncrement": {
+    "6": {
+      "name": "科尔威尔",
+      "number": 6,
+      "matches": 3,
+      "starts": 2,
+      "alternativeNames": [
+        "列维·科尔威尔"
+      ]
+    }
+  }
+}

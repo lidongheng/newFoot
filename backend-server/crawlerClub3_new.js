@@ -125,130 +125,150 @@ class ClubAnalyzer {
       return this.matchDataCache.get(matchId);
     }
     
-    try {
-      const url = `http://bf.titan007.com/detail/${matchId}cn.htm`;
-      
-      const response = await axios({
-        method: 'GET',
-        url,
-        responseType: 'arraybuffer',
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
-          'Referer': 'http://bf.titan007.com/',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-          'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-          'Cache-Control': 'max-age=0'
-        }
-      });
-      
-      const html = iconv.decode(response.data, 'utf-8'); 
-      const $ = cheerio.load(html);
-      
-      // 获取主队和客队信息
-      const homeTeamName = $('.home a').text().trim();
-      const awayTeamName = $('.guest a').text().trim();
-      const homeTeamId = parseInt($('.home a').attr('href').match(/\/(\d+)\.html/)?.[1] || '0', 10);
-      const awayTeamId = parseInt($('.guest a').attr('href').match(/\/(\d+)\.html/)?.[1] || '0', 10);
-      
-      // 判断当前球队是主队还是客队
-      const status = homeTeamId === this.serial ? 'home' : 'guest';
-      
-      // 获取阵型
-      let formation = '';
-      if ($('.content .title .homeN').html()) {
-        formation = $(`.content .title .${status}N`).text().trim();
-        // 提取阵型数字部分 4-2-3-1 => 4231
-        formation = formation.replace(/[^0-9-]/g, '').replace(/-/g, '');
-      } else {
-        formation = $(`#matchBox2>.teamNames .${status}`).text().trim();
-        formation = formation.replace(/[^0-9-]/g, '').replace(/-/g, '');
-      }
-
-      // 获取球员数据
-      const players = [];
-      const positions = this.calculatePositions(formation, status === 'guest');
-      
-      // 解析首发球员
-      $(`#matchBox2 .plays .${status} .playBox .play`).each((index, element) => {
-        const isNewFormat = $('.content .title .homeN').html() ? true : false;
+    const MAX_RETRIES = 3; // 最多重试3次，加上初始请求总共是4次尝试
+    let retries = 0;
+    let lastError = null;
+    
+    while (retries <= MAX_RETRIES) {
+      try {
+        const url = `http://bf.titan007.com/detail/${matchId}cn.htm`;
         
-        // 获取球员号码和姓名
-        let playerNumber = 0;
-        let playerName = '';
-        
-        // 优先从span i元素获取号码
-        const numberElement = $(element).find('span i').first();
-        if (numberElement.length > 0) {
-          playerNumber = parseInt(numberElement.text().trim() || '0', 10);
-        } else if (isNewFormat) {
-          // 如果没有找到span i元素，尝试从.headicon .num获取（旧方式）
-          const number = $(element).find('.headicon .num').text().trim();
-          if (number) {
-            playerNumber = parseInt(number || '0', 10);
+        const response = await axios({
+          method: 'GET',
+          url,
+          responseType: 'arraybuffer',
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
+            'Referer': 'http://bf.titan007.com/',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+            'Cache-Control': 'max-age=0'
           }
-        }
-        
-        // 获取球员姓名
-        const nameElement = $(element).find('.name a').first();
-        if (nameElement.length > 0) {
-          playerName = nameElement.text().trim();
-        }
-        
-        // 获取进球、助攻和换人信息
-        const events = this.extractPlayerEvents($, element);
-        
-        players.push({
-          name: playerName,
-          number: playerNumber,
-          position: positions[index] || 'Unknown',
-          isStarter: true,
-          goals: events.goals,
-          assists: events.assists,
-          substitutedIn: events.substitutedIn,
-          substitutedOut: events.substitutedOut,
-          yellowCards: events.yellowCards,
-          redCards: events.redCards
         });
-      });
-      
-      // 解析替补球员
-      $(`#matchBox2 .backupPlay .${status} .play`).each((index, element) => {
-        // 获取球员号码和姓名
-        const number = parseInt($(element).find('.name i').text().trim() || '0', 10);
-        const name = $(element).find('.name a').text().trim();
         
-        // 获取进球、助攻和换人信息
-        const events = this.extractPlayerEvents($, element);
+        // 如果请求成功，处理数据并返回
+        const html = iconv.decode(response.data, 'utf-8'); 
+        const $ = cheerio.load(html);
         
-        players.push({
-          name: name,
-          number: number,
-          position: 'Substitute',
-          isStarter: false,
-          goals: events.goals,
-          assists: events.assists,
-          substitutedIn: events.substitutedIn,
-          substitutedOut: events.substitutedOut,
-          yellowCards: events.yellowCards,
-          redCards: events.redCards
+        // 获取主队和客队信息
+        const homeTeamName = $('.home a').text().trim();
+        const awayTeamName = $('.guest a').text().trim();
+        const homeTeamId = parseInt($('.home a').attr('href').match(/\/(\d+)\.html/)?.[1] || '0', 10);
+        const awayTeamId = parseInt($('.guest a').attr('href').match(/\/(\d+)\.html/)?.[1] || '0', 10);
+        
+        // 判断当前球队是主队还是客队
+        const status = homeTeamId === this.serial ? 'home' : 'guest';
+        
+        // 获取阵型
+        let formation = '';
+        if ($('.content .title .homeN').html()) {
+          formation = $(`.content .title .${status}N`).text().trim();
+          // 提取阵型数字部分 4-2-3-1 => 4231
+          formation = formation.replace(/[^0-9-]/g, '').replace(/-/g, '');
+        } else {
+          formation = $(`#matchBox2>.teamNames .${status}`).text().trim();
+          formation = formation.replace(/[^0-9-]/g, '').replace(/-/g, '');
+        }
+
+        // 获取球员数据
+        const players = [];
+        const positions = this.calculatePositions(formation, status === 'guest');
+        
+        // 解析首发球员
+        $(`#matchBox2 .plays .${status} .playBox .play`).each((index, element) => {
+          const isNewFormat = $('.content .title .homeN').html() ? true : false;
+          
+          // 获取球员号码和姓名
+          let playerNumber = 0;
+          let playerName = '';
+          
+          // 优先从span i元素获取号码
+          const numberElement = $(element).find('span i').first();
+          if (numberElement.length > 0) {
+            playerNumber = parseInt(numberElement.text().trim() || '0', 10);
+          } else if (isNewFormat) {
+            // 如果没有找到span i元素，尝试从.headicon .num获取（旧方式）
+            const number = $(element).find('.headicon .num').text().trim();
+            if (number) {
+              playerNumber = parseInt(number || '0', 10);
+            }
+          }
+          
+          // 获取球员姓名
+          const nameElement = $(element).find('.name a').first();
+          if (nameElement.length > 0) {
+            playerName = nameElement.text().trim();
+          }
+          
+          // 获取进球、助攻和换人信息
+          const events = this.extractPlayerEvents($, element);
+          
+          players.push({
+            name: playerName,
+            number: playerNumber,
+            position: positions[index] || 'Unknown',
+            isStarter: true,
+            goals: events.goals,
+            assists: events.assists,
+            substitutedIn: events.substitutedIn,
+            substitutedOut: events.substitutedOut,
+            yellowCards: events.yellowCards,
+            redCards: events.redCards
+          });
         });
-      });
-      
-      // 构建比赛数据对象
-      const matchData = {
-        id: matchId,
-        status,
-        formation,
-        players
-      };
-      
-      // 缓存解析后的数据
-      this.matchDataCache.set(matchId, matchData);
-      
-      return matchData;
-    } catch (error) {
-      console.error(`爬取比赛 ${matchId} 数据失败: ${error.message}`);
-      throw error;
+        
+        // 解析替补球员
+        $(`#matchBox2 .backupPlay .${status} .play`).each((index, element) => {
+          // 获取球员号码和姓名
+          const number = parseInt($(element).find('.name i').text().trim() || '0', 10);
+          const name = $(element).find('.name a').text().trim();
+          
+          // 获取进球、助攻和换人信息
+          const events = this.extractPlayerEvents($, element);
+          
+          players.push({
+            name: name,
+            number: number,
+            position: 'Substitute',
+            isStarter: false,
+            goals: events.goals,
+            assists: events.assists,
+            substitutedIn: events.substitutedIn,
+            substitutedOut: events.substitutedOut,
+            yellowCards: events.yellowCards,
+            redCards: events.redCards
+          });
+        });
+        
+        // 构建比赛数据对象
+        const matchData = {
+          id: matchId,
+          status,
+          formation,
+          players
+        };
+        
+        // 缓存解析后的数据
+        this.matchDataCache.set(matchId, matchData);
+        
+        // 请求成功，返回数据
+        return matchData;
+        
+      } catch (error) {
+        lastError = error;
+        
+        // 判断是否还有重试机会
+        if (retries < MAX_RETRIES) {
+          retries++;
+          console.warn(`爬取比赛 ${matchId} 数据失败 (尝试 ${retries}/${MAX_RETRIES}): ${error.message}`);
+          // 等待一段时间再重试，每次重试等待时间递增
+          await new Promise(resolve => setTimeout(resolve, 1000 * retries));
+        } else {
+          // 所有重试尝试都失败
+          console.error(`爬取比赛 ${matchId} 数据失败，已尝试 ${retries+1} 次: ${error.message}`);
+          throw new Error(`爬取比赛 ${matchId} 数据失败，已尝试 ${retries+1} 次: ${error.message}`);
+        }
+      }
     }
   }
   
@@ -381,13 +401,13 @@ class ClubAnalyzer {
     for (const player of players) {
       const { name, number, position, isStarter, goals, assists, substitutedIn, substitutedOut } = player;
       
-      // 创建球员唯一标识符 - 如果不是国家队，使用球衣号码作为唯一标识符
-      const playerKey = this.isNation ? name : `${number}_${name}`;
+      // 创建球员唯一标识符 - 如果不是国家队，仅使用球衣号码作为唯一标识符
+      const playerKey = this.isNation ? name : `${number}`;
       
       // 如果球员还未被记录，则初始化其数据
       if (!this.playersData[playerKey]) {
         this.playersData[playerKey] = {
-          name,
+          name, // 初始使用第一次遇到的名称
           number,
           matches: 0,
           starts: 0,
@@ -396,12 +416,19 @@ class ClubAnalyzer {
           assists: 0,
           minutesPlayed: 0,
           substitutedIn: 0,
-          substitutedOut: 0
+          substitutedOut: 0,
+          alternativeNames: [] // 添加一个数组来记录球员的所有名称变体
         };
       }
       
       // 更新球员数据
       const playerData = this.playersData[playerKey];
+      
+      // 如果当前名称与记录的不同，且还未记录在alternativeNames中，则添加到备选名称列表
+      if (playerData.name !== name && !playerData.alternativeNames.includes(name)) {
+        playerData.alternativeNames.push(name);
+      }
+      
       playerData.matches++;
       
       if (isStarter) {
@@ -551,8 +578,8 @@ class ClubAnalyzer {
     // 将球员数据转换为数组以便于排序和处理
     const playersArray = Object.values(this.playersData).map(player => ({
       ...player,
-      // 添加球员标识符，以便在 isNation=false 时使用球衣号码+姓名作为唯一标识
-      id: this.isNation ? player.name : `${player.number}_${player.name}`
+      // 添加球员标识符，以便在 isNation=false 时仅使用球衣号码作为唯一标识
+      id: this.isNation ? player.name : `${player.number}`
     }));
     
     // 从记录的数据中创建球队报告
