@@ -288,26 +288,33 @@ class ClubAnalyzer {
       redCards: 0
     };
     
-    // 解析事件图标
-    $(element).find('.eventicon img, #playerTech_\\d+ img').each((i, img) => {
-      const title = $(img).attr('title') || '';
-      const alt = $(img).attr('alt') || '';
-      const src = $(img).attr('src') || '';
-      
-      // 根据图片src或title/alt判断事件类型
-      if (src.includes('1.png') || title.includes('入球') || alt.includes('入球')) {
-        events.goals++;
-      } else if (src.includes('12.png') || title.includes('助攻') || alt.includes('助攻')) {
-        events.assists++;
-      } else if (src.includes('4.png') || title.includes('换入') || alt.includes('换入')) {
-        events.substitutedIn = true;
-      } else if (src.includes('5.png') || title.includes('换出') || alt.includes('换出')) {
-        events.substitutedOut = true;
-      } else if (src.includes('3.png') || title.includes('黄牌') || alt.includes('黄牌')) {
-        events.yellowCards++;
-      } else if (src.includes('2.png') || title.includes('红牌') || alt.includes('红牌')) {
-        events.redCards++;
-      }
+    // 查找所有事件图标 - 考虑多种可能的图片位置
+    const imgSelectors = [
+      'div[id^="playerTech_"] img', // 旧版页面使用playerTech_开头的div ID
+    ];
+    
+    // 对每个选择器尝试查找图片
+    imgSelectors.forEach(selector => {
+      $(element).find(selector).each((i, img) => {
+        const title = $(img).attr('title') || '';
+        const alt = $(img).attr('alt') || '';
+        const src = $(img).attr('src') || '';
+        
+        // 根据图片src、title或alt判断事件类型
+        if (src.split('/').pop() === '1.png') {
+          events.goals++;
+        } else if (src.split('/').pop() === '12.png') {
+          events.assists++;
+        } else if (src.split('/').pop() === '4.png') {
+          events.substitutedIn = true;
+        } else if (src.split('/').pop() === '5.png') {
+          events.substitutedOut = true;
+        } else if (src.split('/').pop() === '3.png') {
+          events.yellowCards++;
+        } else if (src.split('/').pop() === '2.png') {
+          events.redCards++;
+        }
+      });
     });
     
     return events;
