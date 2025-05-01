@@ -484,9 +484,9 @@ function calculateStandings(leagueId = 36, startRound = 1, endRound, latestRound
 
 /**
  * 计算NBA联赛积分榜
- * @param {Array} arrTeam 球队信息
- * @param {Array} arrData 比赛信息
- * @returns {Promise<Object>} 返回东部和西部的积分榜
+ * @param {string} startDate 开始日期
+ * @param {string} endDate 结束日期
+ * @returns {Promise<Object>} 返回积分榜数据
  */
  function calculateNBAStandings(startDate, endDate) {
   return new Promise((resolve, reject) => {
@@ -670,14 +670,13 @@ function calculateStandings(leagueId = 36, startRound = 1, endRound, latestRound
 
 /**
  * 计算NBA联赛亚让盘路榜
- * @param {Array} arrTeam 球队信息
- * @param {Array} arrData 比赛数据
+ * @param {string} startDate 开始日期
+ * @param {string} endDate 结束日期
  * @returns {Promise<Object>} 返回亚让盘路榜数据
  */
  function calculateNBAAsianHandicap(startDate, endDate) {
   return new Promise((resolve, reject) => {
     try {
-
       // 读取2024年10月到2025年1月的数据文件
       const fileNames = [
         'l1_1_2024_10.js', // 读取2024年10月的数据
@@ -809,8 +808,8 @@ function calculateStandings(leagueId = 36, startRound = 1, endRound, latestRound
 
 /**
  * 计算NBA联赛大小盘路榜
- * @param {Array} arrTeam 球队信息
- * @param {Array} arrData 比赛数据
+ * @param {string} startDate 开始日期
+ * @param {string} endDate 结束日期
  * @returns {Promise<Object>} 返回大小盘路榜数据
  */
  function calculateNBAOverUnder(startDate, endDate) {
