@@ -99,4 +99,131 @@ backend-server/
 }
 ```
 
-这会让nodemon监视index.js和calculate目录中的所有文件变化，并在文件保存后延迟500毫秒重启服务器。 
+这会让nodemon监视index.js和calculate目录中的所有文件变化，并在文件保存后延迟500毫秒重启服务器。
+
+# 足球数据分析系统
+
+这是一个足球数据分析系统，用于爬取足球比赛数据，分析球队和球员表现，并生成统计报告。
+
+## 主要功能
+
+- 读取联赛和球队数据
+- 爬取足球比赛数据
+- 分析球员出场数据（首发、替补、位置、进球、助攻等）
+- 确定球队最常用阵型
+- 推荐最佳首发阵容
+
+## 文件说明
+
+- `crawlerClub3_new.js` - 新版球队数据爬取与分析脚本
+- `crawlerClub3.js` - 原版爬虫脚本（旧版，不推荐使用）
+- `match_center/` - 联赛数据文件目录
+- `player_center/` - 球员和球队数据文件目录
+- `config/` - 配置文件目录
+- `utils/` - 工具函数目录
+
+## 使用方法
+
+### 配置
+
+在 `config/wudaconfig.js` 中设置以下参数：
+
+```javascript
+module.exports = {
+  leagueSerial: "36", // 联赛ID，如36表示英超
+  teamSerial: "24",  // 球队ID，如24表示切尔西
+  roundSerial: "38"  // 当前轮次
+}
+```
+
+### 直接运行
+
+```bash
+node crawlerClub3_new.js
+```
+
+### 作为模块使用
+
+```javascript
+const ClubAnalyzer = require('./crawlerClub3_new');
+
+const analyzer = new ClubAnalyzer({
+  leagueId: 36,       // 联赛ID，如36表示英超
+  serial: 24,         // 球队ID，如24表示切尔西
+  isNation: false,    // 是否为国家队
+  roundSerial: 38     // 当前轮次
+});
+
+analyzer.analyze()
+  .then(report => {
+    console.log('分析完成!');
+    console.log(`最常用阵型: ${report.mostUsedFormation}`);
+    console.log(`分析球员数量: ${Object.keys(report.players).length}`);
+  })
+  .catch(error => {
+    console.error('分析失败:', error);
+  });
+```
+
+## 代码重构说明
+
+新版的 `crawlerClub3_new.js` 对原来的脚本进行了全面重构：
+
+1. 采用面向对象的编程方式，使代码结构更清晰
+2. 增强了错误处理机制，提高了稳定性
+3. 优化了数据爬取和解析逻辑，提高了效率
+4. 增加了详细的代码注释，提高了可读性
+5. 使用更安全的代码执行方式，避免了eval的安全隐患
+6. 完善了球员位置和阵型分析，使推荐更准确
+
+## 输出数据格式
+
+分析结果将保存为JSON格式，包含以下主要信息：
+
+```json
+{
+  "teamId": 24,
+  "isNation": false,
+  "analysisDate": "2023-05-01T12:00:00.000Z",
+  "mostUsedFormation": "4231",
+  "recommendedLineup": [
+    {
+      "name": "球员名称",
+      "number": 7,
+      "matches": 20,
+      "starts": 18,
+      "positions": { "LW": 15, "RW": 3 },
+      "goals": 8,
+      "assists": 5,
+      "minutesPlayed": 1620,
+      "substitutedIn": 2,
+      "substitutedOut": 5,
+      "recommendedPosition": "LW"
+    },
+    // 更多球员...
+  ],
+  "players": {
+    // 所有球员数据
+  },
+  "formationStats": {
+    "4231": 15,
+    "433": 5
+    // 其他阵型使用次数
+  }
+}
+```
+
+## 依赖项
+
+- Node.js
+- axios - HTTP请求库
+- cheerio - HTML解析库
+- iconv-lite - 编码转换库
+- fs - 文件系统模块
+- path - 路径处理模块
+
+## 注意事项
+
+- 请合理控制爬取频率，避免对目标网站造成过大压力
+- 确保match_center目录下有对应联赛的数据文件
+- 确保有正确的网络连接以获取比赛数据 
