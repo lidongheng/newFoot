@@ -1,7 +1,7 @@
 {
   "teamId": 24,
   "isNation": false,
-  "analysisDate": "2025-05-01T16:08:49.508Z",
+  "analysisDate": "2025-05-01T16:27:45.364Z",
   "mostUsedFormation": "4231",
   "recommendedLineup": [
     {
@@ -18,7 +18,27 @@
       "substitutedIn": 0,
       "substitutedOut": 0,
       "alternativeNames": [],
+      "bestPosition": "GK",
+      "bestPositionAppearances": 28,
       "recommendedPosition": "GK"
+    },
+    {
+      "name": "库库雷利亚",
+      "number": 3,
+      "matches": 32,
+      "starts": 29,
+      "positions": {
+        "LB": 29
+      },
+      "goals": 4,
+      "assists": 1,
+      "minutesPlayed": 2570,
+      "substitutedIn": 3,
+      "substitutedOut": 5,
+      "alternativeNames": [],
+      "bestPosition": "LB",
+      "bestPositionAppearances": 29,
+      "recommendedPosition": "LB"
     },
     {
       "name": "列维·科尔威尔",
@@ -36,39 +56,27 @@
       "alternativeNames": [
         "科尔威尔"
       ],
-      "recommendedPosition": "LB"
-    },
-    {
-      "name": "M.凯塞多",
-      "number": 25,
-      "matches": 34,
-      "starts": 34,
-      "positions": {
-        "CDM": 30,
-        "RB": 4
-      },
-      "goals": 1,
-      "assists": 2,
-      "minutesPlayed": 2960,
-      "substitutedIn": 0,
-      "substitutedOut": 5,
-      "alternativeNames": [],
+      "bestPosition": "CB",
+      "bestPositionAppearances": 31,
       "recommendedPosition": "CB"
     },
     {
-      "name": "库库雷利亚",
-      "number": 3,
-      "matches": 32,
-      "starts": 29,
+      "name": "W·福法纳",
+      "number": 29,
+      "matches": 14,
+      "starts": 14,
       "positions": {
-        "LB": 29
+        "CB": 10,
+        "RB": 4
       },
-      "goals": 4,
-      "assists": 1,
-      "minutesPlayed": 2570,
-      "substitutedIn": 3,
-      "substitutedOut": 5,
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 1180,
+      "substitutedIn": 0,
+      "substitutedOut": 4,
       "alternativeNames": [],
+      "bestPosition": "CB",
+      "bestPositionAppearances": 10,
       "recommendedPosition": "CB"
     },
     {
@@ -86,7 +94,28 @@
       "substitutedIn": 9,
       "substitutedOut": 6,
       "alternativeNames": [],
+      "bestPosition": "RB",
+      "bestPositionAppearances": 17,
       "recommendedPosition": "RB"
+    },
+    {
+      "name": "M.凯塞多",
+      "number": 25,
+      "matches": 34,
+      "starts": 34,
+      "positions": {
+        "CDM": 30,
+        "RB": 4
+      },
+      "goals": 1,
+      "assists": 2,
+      "minutesPlayed": 2960,
+      "substitutedIn": 0,
+      "substitutedOut": 5,
+      "alternativeNames": [],
+      "bestPosition": "CDM",
+      "bestPositionAppearances": 30,
+      "recommendedPosition": "CDM"
     },
     {
       "name": "恩佐·费尔南德兹",
@@ -105,59 +134,9 @@
       "alternativeNames": [
         "恩佐"
       ],
+      "bestPosition": "CDM",
+      "bestPositionAppearances": 25,
       "recommendedPosition": "CDM"
-    },
-    {
-      "name": "R.詹姆斯",
-      "number": 24,
-      "matches": 15,
-      "starts": 10,
-      "positions": {
-        "RB": 5,
-        "LB": 3,
-        "CDM": 2
-      },
-      "goals": 1,
-      "assists": 0,
-      "minutesPlayed": 860,
-      "substitutedIn": 5,
-      "substitutedOut": 7,
-      "alternativeNames": [],
-      "recommendedPosition": "CDM"
-    },
-    {
-      "name": "C.帕尔默",
-      "number": 20,
-      "matches": 33,
-      "starts": 32,
-      "positions": {
-        "RAM": 2,
-        "CAM": 30
-      },
-      "goals": 14,
-      "assists": 8,
-      "minutesPlayed": 2700,
-      "substitutedIn": 1,
-      "substitutedOut": 10,
-      "alternativeNames": [],
-      "recommendedPosition": "LAM"
-    },
-    {
-      "name": "N·马杜埃凯",
-      "number": 11,
-      "matches": 28,
-      "starts": 23,
-      "positions": {
-        "RAM": 22,
-        "LAM": 1
-      },
-      "goals": 7,
-      "assists": 3,
-      "minutesPlayed": 1790,
-      "substitutedIn": 5,
-      "substitutedOut": 19,
-      "alternativeNames": [],
-      "recommendedPosition": "CAM"
     },
     {
       "name": "内托",
@@ -175,6 +154,46 @@
       "substitutedIn": 10,
       "substitutedOut": 7,
       "alternativeNames": [],
+      "bestPosition": "LAM",
+      "bestPositionAppearances": 9,
+      "recommendedPosition": "LAM"
+    },
+    {
+      "name": "C.帕尔默",
+      "number": 20,
+      "matches": 33,
+      "starts": 32,
+      "positions": {
+        "RAM": 2,
+        "CAM": 30
+      },
+      "goals": 14,
+      "assists": 8,
+      "minutesPlayed": 2700,
+      "substitutedIn": 1,
+      "substitutedOut": 10,
+      "alternativeNames": [],
+      "bestPosition": "CAM",
+      "bestPositionAppearances": 30,
+      "recommendedPosition": "CAM"
+    },
+    {
+      "name": "N·马杜埃凯",
+      "number": 11,
+      "matches": 28,
+      "starts": 23,
+      "positions": {
+        "RAM": 22,
+        "LAM": 1
+      },
+      "goals": 7,
+      "assists": 3,
+      "minutesPlayed": 1790,
+      "substitutedIn": 5,
+      "substitutedOut": 19,
+      "alternativeNames": [],
+      "bestPosition": "RAM",
+      "bestPositionAppearances": 22,
       "recommendedPosition": "RAM"
     },
     {
@@ -193,6 +212,8 @@
       "alternativeNames": [
         "雅克松"
       ],
+      "bestPosition": "ST",
+      "bestPositionAppearances": 26,
       "recommendedPosition": "ST"
     }
   ],

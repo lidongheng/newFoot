@@ -506,30 +506,59 @@ class ClubAnalyzer {
   determineStartingLineup(formation) {
     const positions = this.getPositionsForFormation(formation);
     const lineup = [];
-    
-    // 创建已排序的球员列表（按首发次数排序）
-    const sortedPlayers = Object.values(this.playersData)
-      .sort((a, b) => b.starts - a.starts);
-    
+    const assignedPlayers = new Set(); // 用于跟踪已分配的球员
+
+    // 为每个球员确定其最佳位置（出场次数最多的位置）
+    const players = Object.values(this.playersData).map(player => {
+      let bestPosition = null;
+      let maxAppearances = 0;
+
+      // 遍历球员的所有位置记录，找出出场次数最多的位置
+      for (const [position, appearances] of Object.entries(player.positions)) {
+        if (appearances > maxAppearances) {
+          maxAppearances = appearances;
+          bestPosition = position;
+        }
+      }
+
+      return {
+        ...player,
+        bestPosition,
+        bestPositionAppearances: maxAppearances
+      };
+    });
+
+    // 按首发次数排序
+    const sortedPlayers = players.sort((a, b) => b.starts - a.starts);
+
     // 为每个位置挑选最合适的球员
     for (const position of positions) {
-      // 找到尚未被选中且最适合该位置的球员
-      const player = sortedPlayers.find(p => {
-        // 检查球员是否已被选入阵容
-        if (lineup.some(selectedPlayer => selectedPlayer.name === p.name)) {
-          return false;
-        }
-        
-        // 获取球员在该位置上的出场次数
-        const positionMatches = p.positions[position] || 0;
-        
-        // 如果球员在该位置上有出场记录，或者是相似位置，则考虑选择
-        return positionMatches > 0 || this.isCompatiblePosition(position, p.positions);
-      });
-      
-      if (player) {
+      // 首先查找最适合该位置的球员（最佳位置就是该位置的）
+      let bestMatch = sortedPlayers.find(p => 
+        !assignedPlayers.has(p.name) && 
+        p.bestPosition === position
+      );
+
+      // 如果没有找到完全匹配的，则尝试找出场过该位置的球员
+      if (!bestMatch) {
+        bestMatch = sortedPlayers.find(p => 
+          !assignedPlayers.has(p.name) && 
+          (p.positions[position] || 0) > 0
+        );
+      }
+
+      // 如果仍未找到，则寻找适合相似位置的球员
+      if (!bestMatch) {
+        bestMatch = sortedPlayers.find(p => 
+          !assignedPlayers.has(p.name) && 
+          this.isCompatiblePosition(position, p.positions)
+        );
+      }
+
+      if (bestMatch) {
+        assignedPlayers.add(bestMatch.name);
         lineup.push({
-          ...player,
+          ...bestMatch,
           recommendedPosition: position
         });
       }
