@@ -14,13 +14,13 @@ class ClubAnalyzer {
   /**
    * 初始化分析器
    * @param {Object} options 配置选项
-   * @param {number} options.leagueId 联赛ID（如36表示英超）
+   * @param {string} options.leagueId 联赛ID（如s36表示英超）
    * @param {number} options.serial 球队序号（如24表示切尔西）
    * @param {boolean} options.isNation 是否国家队分析
    * @param {number} options.roundSerial 准备开打的轮次
    */
   constructor(options = {}) {
-    this.leagueId = options.leagueId || 36; // 默认英超
+    this.leagueId = options.leagueId || 's36'; // 默认英超
     this.serial = options.serial || null;
     this.isNation = options.isNation || false;
     this.roundSerial = options.roundSerial || null;
@@ -633,7 +633,7 @@ if (require.main === module) {
     
     // 创建分析器实例
     const analyzer = new ClubAnalyzer({
-      leagueId: staticData.leagueSerial || 36, // 默认英超
+      leagueId: staticData.leagueSerial || 's36', // 默认英超
       serial: Number(staticData.teamSerial) || 24, // 默认切尔西
       isNation: false, // 默认非国家队
       roundSerial: Number(staticData.roundSerial) || null // 准备开打的轮次

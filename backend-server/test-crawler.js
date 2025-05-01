@@ -8,7 +8,7 @@ const path = require('path');
 
 // 测试配置
 const testConfig = {
-  leagueId: 36, // 英超
+  leagueId: 's36', // 英超
   serial: 24,   // 切尔西
   isNation: false,
   roundSerial: 38
