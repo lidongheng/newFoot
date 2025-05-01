@@ -1,6 +1,6 @@
 const staticData = {
-  leagueSerial: 's31',
-  teamSerial: '92',
-  roundSerial: '34'
+  leagueSerial: 's36',
+  teamSerial: '27',
+  roundSerial: '35'
 }
 module.exports = staticData

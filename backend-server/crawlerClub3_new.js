@@ -440,7 +440,8 @@ class ClubAnalyzer {
           alternativeNames: [], // 添加一个数组来记录球员的所有名称变体
           age: 0, // 添加年龄字段
           socialStatus: 0, // 添加身价字段
-          nation: '' // 添加国家字段
+          nation: '', // 添加国家字段
+          height: 0 // 添加身高字段
         };
       }
       
@@ -760,6 +761,11 @@ class ClubAnalyzer {
           if (playerInfo.nation) {
             existingPlayer.nation = playerInfo.nation;
           }
+          
+          // 更新身高信息
+          if (playerInfo.height) {
+            existingPlayer.height = parseInt(playerInfo.height, 10) || 0;
+          }
         } else {
           // 如果当前球员列表中没有该球员，尝试通过名称匹配
           const matchByName = Object.values(this.playersData).find(p => 
@@ -780,6 +786,11 @@ class ClubAnalyzer {
             // 更新国家信息
             if (playerInfo.nation) {
               matchByName.nation = playerInfo.nation;
+            }
+            
+            // 更新身高信息
+            if (playerInfo.height) {
+              matchByName.height = parseInt(playerInfo.height, 10) || 0;
             }
           }
           // 如果找不到匹配的球员，就跳过
@@ -844,9 +855,10 @@ if (require.main === module) {
           // 格式化输出球员信息，添加国家、年龄和身价
           const nationInfo = player.nation || '--';
           const ageInfo = player.age ? `${player.age}` : '--';
+          const heightInfo = player.height ? `${player.height}cm` : '--';
           const valueInfo = player.socialStatus ? `${player.socialStatus}万欧元` : '--';
           
-          console.log(`${player.number}-${player.name} ${player.matches}场${player.starts}首发 ${JSON.stringify(positionsObj)} ${nationInfo} ${ageInfo} ${valueInfo}`);
+          console.log(`${player.number}-${player.name} ${player.matches}场${player.starts}首发 ${JSON.stringify(positionsObj)} ${nationInfo} ${ageInfo} ${heightInfo} ${valueInfo}`);
         });
         console.log(''); // 添加空行分隔
         
