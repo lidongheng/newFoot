@@ -173,25 +173,33 @@ class ClubAnalyzer {
         const isNewFormat = $('.content .title .homeN').html() ? true : false;
         
         // 获取球员号码和姓名
-        let numberAndName = '';
-        try {
-          if (isNewFormat) {
-            const number = $(element).find('.headicon .num').text().trim();
-            const name = $(element).find('.name a').text().trim();
-            numberAndName = `${number} ${name}`;
-          } else {
-            numberAndName = $(element).find('.name a').text().trim();
+        let playerNumber = 0;
+        let playerName = '';
+        
+        // 优先从span i元素获取号码
+        const numberElement = $(element).find('span i').first();
+        if (numberElement.length > 0) {
+          playerNumber = parseInt(numberElement.text().trim() || '0', 10);
+        } else if (isNewFormat) {
+          // 如果没有找到span i元素，尝试从.headicon .num获取（旧方式）
+          const number = $(element).find('.headicon .num').text().trim();
+          if (number) {
+            playerNumber = parseInt(number || '0', 10);
           }
-        } catch (err) {
-          numberAndName = $(element).find('.name a').text().trim();
+        }
+        
+        // 获取球员姓名
+        const nameElement = $(element).find('.name a').first();
+        if (nameElement.length > 0) {
+          playerName = nameElement.text().trim();
         }
         
         // 获取进球、助攻和换人信息
         const events = this.extractPlayerEvents($, element);
         
         players.push({
-          name: numberAndName.replace(/^\d+\s*/, '').trim(), // 去除号码
-          number: parseInt(numberAndName.match(/^\d+/) || ['0'], 10), // 提取号码
+          name: playerName,
+          number: playerNumber,
           position: positions[index] || 'Unknown',
           isStarter: true,
           goals: events.goals,
@@ -206,7 +214,7 @@ class ClubAnalyzer {
       // 解析替补球员
       $(`#matchBox2 .backupPlay .${status} .play`).each((index, element) => {
         // 获取球员号码和姓名
-        const number = $(element).find('.name i').text().trim();
+        const number = parseInt($(element).find('.name i').text().trim() || '0', 10);
         const name = $(element).find('.name a').text().trim();
         
         // 获取进球、助攻和换人信息
@@ -214,7 +222,7 @@ class ClubAnalyzer {
         
         players.push({
           name: name,
-          number: parseInt(number || '0', 10),
+          number: number,
           position: 'Substitute',
           isStarter: false,
           goals: events.goals,
@@ -373,9 +381,12 @@ class ClubAnalyzer {
     for (const player of players) {
       const { name, number, position, isStarter, goals, assists, substitutedIn, substitutedOut } = player;
       
+      // 创建球员唯一标识符 - 如果不是国家队，使用球衣号码作为唯一标识符
+      const playerKey = this.isNation ? name : `${number}_${name}`;
+      
       // 如果球员还未被记录，则初始化其数据
-      if (!this.playersData[name]) {
-        this.playersData[name] = {
+      if (!this.playersData[playerKey]) {
+        this.playersData[playerKey] = {
           name,
           number,
           matches: 0,
@@ -390,7 +401,7 @@ class ClubAnalyzer {
       }
       
       // 更新球员数据
-      const playerData = this.playersData[name];
+      const playerData = this.playersData[playerKey];
       playerData.matches++;
       
       if (isStarter) {
@@ -537,10 +548,18 @@ class ClubAnalyzer {
     const mostUsedFormation = this.getMostUsedFormation();
     const recommendedLineup = this.determineStartingLineup(mostUsedFormation);
     
+    // 将球员数据转换为数组以便于排序和处理
+    const playersArray = Object.values(this.playersData).map(player => ({
+      ...player,
+      // 添加球员标识符，以便在 isNation=false 时使用球衣号码+姓名作为唯一标识
+      id: this.isNation ? player.name : `${player.number}_${player.name}`
+    }));
+    
+    // 从记录的数据中创建球队报告
     return {
       teamId: this.serial,
       isNation: this.isNation,
-      analysisDate: new Date().toISOString(),
+      analysisDate: new Date(),
       mostUsedFormation,
       recommendedLineup,
       players: this.playersData,

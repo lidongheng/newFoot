@@ -130,7 +130,7 @@ backend-server/
 
 ```javascript
 module.exports = {
-  leagueSerial: "36", // 联赛ID，如36表示英超
+  leagueSerial: "s36", // 联赛ID，如s36表示英超
   teamSerial: "24",  // 球队ID，如24表示切尔西
   roundSerial: "38"  // 当前轮次
 }
@@ -148,7 +148,7 @@ node crawlerClub3_new.js
 const ClubAnalyzer = require('./crawlerClub3_new');
 
 const analyzer = new ClubAnalyzer({
-  leagueId: 36,       // 联赛ID，如36表示英超
+  leagueId: 's36',     // 联赛ID，如s36表示英超
   serial: 24,         // 球队ID，如24表示切尔西
   isNation: false,    // 是否为国家队
   roundSerial: 38     // 当前轮次

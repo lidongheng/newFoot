@@ -1,12 +1,12 @@
 {
   "teamId": 24,
   "isNation": false,
-  "analysisDate": "2025-05-01T11:18:04.346Z",
+  "analysisDate": "2025-05-01T13:28:35.901Z",
   "mostUsedFormation": "4231",
   "recommendedLineup": [
     {
       "name": "桑切斯",
-      "number": 0,
+      "number": 1,
       "matches": 33,
       "starts": 27,
       "positions": {
@@ -21,7 +21,7 @@
     },
     {
       "name": "库库雷利亚",
-      "number": 0,
+      "number": 3,
       "matches": 31,
       "starts": 28,
       "positions": {
@@ -36,7 +36,7 @@
     },
     {
       "name": "M.凯塞多",
-      "number": 0,
+      "number": 25,
       "matches": 33,
       "starts": 33,
       "positions": {
@@ -52,7 +52,7 @@
     },
     {
       "name": "科尔威尔",
-      "number": 0,
+      "number": 6,
       "matches": 30,
       "starts": 28,
       "positions": {
@@ -67,7 +67,7 @@
     },
     {
       "name": "古斯托",
-      "number": 0,
+      "number": 27,
       "matches": 29,
       "starts": 19,
       "positions": {
@@ -83,7 +83,7 @@
     },
     {
       "name": "恩佐",
-      "number": 0,
+      "number": 8,
       "matches": 29,
       "starts": 25,
       "positions": {
@@ -99,7 +99,7 @@
     },
     {
       "name": "R.詹姆斯",
-      "number": 0,
+      "number": 24,
       "matches": 18,
       "starts": 10,
       "positions": {
@@ -116,7 +116,7 @@
     },
     {
       "name": "C.帕尔默",
-      "number": 0,
+      "number": 20,
       "matches": 32,
       "starts": 31,
       "positions": {
@@ -147,8 +147,8 @@
     },
     {
       "name": "内托",
-      "number": 19,
-      "matches": 31,
+      "number": 7,
+      "matches": 30,
       "starts": 19,
       "positions": {
         "LAM": 9,
@@ -157,14 +157,14 @@
       },
       "goals": 1,
       "assists": 1,
-      "minutesPlayed": 1930,
-      "substitutedIn": 11,
+      "minutesPlayed": 1910,
+      "substitutedIn": 10,
       "substitutedOut": 0,
       "recommendedPosition": "RAM"
     },
     {
       "name": "N·杰克逊",
-      "number": 0,
+      "number": 15,
       "matches": 17,
       "starts": 14,
       "positions": {
@@ -179,9 +179,9 @@
     }
   ],
   "players": {
-    "桑切斯": {
+    "1_桑切斯": {
       "name": "桑切斯",
-      "number": 0,
+      "number": 1,
       "matches": 33,
       "starts": 27,
       "positions": {
@@ -193,9 +193,9 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "库库雷利亚": {
+    "3_库库雷利亚": {
       "name": "库库雷利亚",
-      "number": 0,
+      "number": 3,
       "matches": 31,
       "starts": 28,
       "positions": {
@@ -207,9 +207,9 @@
       "substitutedIn": 3,
       "substitutedOut": 0
     },
-    "列维·科尔威尔": {
+    "6_列维·科尔威尔": {
       "name": "列维·科尔威尔",
-      "number": 0,
+      "number": 6,
       "matches": 2,
       "starts": 2,
       "positions": {
@@ -221,9 +221,9 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "W·福法纳": {
+    "29_W·福法纳": {
       "name": "W·福法纳",
-      "number": 0,
+      "number": 29,
       "matches": 15,
       "starts": 14,
       "positions": {
@@ -236,9 +236,9 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "古斯托": {
+    "27_古斯托": {
       "name": "古斯托",
-      "number": 0,
+      "number": 27,
       "matches": 29,
       "starts": 19,
       "positions": {
@@ -251,9 +251,9 @@
       "substitutedIn": 9,
       "substitutedOut": 1
     },
-    "拉维亚": {
+    "45_拉维亚": {
       "name": "拉维亚",
-      "number": 0,
+      "number": 45,
       "matches": 15,
       "starts": 8,
       "positions": {
@@ -265,9 +265,9 @@
       "substitutedIn": 3,
       "substitutedOut": 0
     },
-    "M.凯塞多": {
+    "25_M.凯塞多": {
       "name": "M.凯塞多",
-      "number": 0,
+      "number": 25,
       "matches": 33,
       "starts": 33,
       "positions": {
@@ -280,9 +280,9 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "恩昆库": {
+    "18_恩昆库": {
       "name": "恩昆库",
-      "number": 0,
+      "number": 18,
       "matches": 32,
       "starts": 9,
       "positions": {
@@ -295,9 +295,9 @@
       "substitutedIn": 18,
       "substitutedOut": 0
     },
-    "恩佐·费尔南德兹": {
+    "8_恩佐·费尔南德兹": {
       "name": "恩佐·费尔南德兹",
-      "number": 0,
+      "number": 8,
       "matches": 2,
       "starts": 2,
       "positions": {
@@ -310,9 +310,9 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "C.帕尔默": {
+    "20_C.帕尔默": {
       "name": "C.帕尔默",
-      "number": 0,
+      "number": 20,
       "matches": 32,
       "starts": 31,
       "positions": {
@@ -325,9 +325,9 @@
       "substitutedIn": 1,
       "substitutedOut": 0
     },
-    "N·杰克逊": {
+    "15_N·杰克逊": {
       "name": "N·杰克逊",
-      "number": 0,
+      "number": 15,
       "matches": 17,
       "starts": 14,
       "positions": {
@@ -339,23 +339,19 @@
       "substitutedIn": 2,
       "substitutedOut": 0
     },
-    "内托": {
+    "19_内托": {
       "name": "内托",
       "number": 19,
-      "matches": 31,
-      "starts": 19,
-      "positions": {
-        "LAM": 9,
-        "RAM": 6,
-        "ST": 4
-      },
-      "goals": 1,
-      "assists": 1,
-      "minutesPlayed": 1930,
-      "substitutedIn": 11,
+      "matches": 1,
+      "starts": 0,
+      "positions": {},
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 20,
+      "substitutedIn": 1,
       "substitutedOut": 0
     },
-    "K·霍尔": {
+    "22_K·霍尔": {
       "name": "K·霍尔",
       "number": 22,
       "matches": 21,
@@ -370,7 +366,7 @@
       "substitutedIn": 9,
       "substitutedOut": 0
     },
-    "马克·吉乌": {
+    "38_马克·吉乌": {
       "name": "马克·吉乌",
       "number": 38,
       "matches": 12,
@@ -382,7 +378,7 @@
       "substitutedIn": 3,
       "substitutedOut": 0
     },
-    "维加": {
+    "40_维加": {
       "name": "维加",
       "number": 40,
       "matches": 20,
@@ -396,7 +392,7 @@
       "substitutedIn": 6,
       "substitutedOut": 0
     },
-    "F.乔金森": {
+    "12_F.乔金森": {
       "name": "F.乔金森",
       "number": 12,
       "matches": 32,
@@ -410,7 +406,7 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "阿达拉比奥约": {
+    "4_阿达拉比奥约": {
       "name": "阿达拉比奥约",
       "number": 4,
       "matches": 33,
@@ -424,7 +420,7 @@
       "substitutedIn": 7,
       "substitutedOut": 0
     },
-    "贝迪亚沙尔": {
+    "5_贝迪亚沙尔": {
       "name": "贝迪亚沙尔",
       "number": 5,
       "matches": 17,
@@ -438,7 +434,7 @@
       "substitutedIn": 2,
       "substitutedOut": 0
     },
-    "穆德里克": {
+    "10_穆德里克": {
       "name": "穆德里克",
       "number": 10,
       "matches": 12,
@@ -452,7 +448,7 @@
       "substitutedIn": 6,
       "substitutedOut": 0
     },
-    "N·马杜埃凯": {
+    "11_N·马杜埃凯": {
       "name": "N·马杜埃凯",
       "number": 11,
       "matches": 28,
@@ -466,9 +462,9 @@
       "substitutedIn": 5,
       "substitutedOut": 0
     },
-    "雅克松": {
+    "15_雅克松": {
       "name": "雅克松",
-      "number": 0,
+      "number": 15,
       "matches": 11,
       "starts": 11,
       "positions": {
@@ -480,7 +476,23 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "菲利克斯": {
+    "7_内托": {
+      "name": "内托",
+      "number": 7,
+      "matches": 30,
+      "starts": 19,
+      "positions": {
+        "LAM": 9,
+        "RAM": 6,
+        "ST": 4
+      },
+      "goals": 1,
+      "assists": 1,
+      "minutesPlayed": 1910,
+      "substitutedIn": 10,
+      "substitutedOut": 0
+    },
+    "14_菲利克斯": {
       "name": "菲利克斯",
       "number": 14,
       "matches": 20,
@@ -494,9 +506,9 @@
       "substitutedIn": 9,
       "substitutedOut": 0
     },
-    "科尔威尔": {
+    "6_科尔威尔": {
       "name": "科尔威尔",
-      "number": 0,
+      "number": 6,
       "matches": 30,
       "starts": 28,
       "positions": {
@@ -508,9 +520,9 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "恩佐": {
+    "8_恩佐": {
       "name": "恩佐",
-      "number": 0,
+      "number": 8,
       "matches": 29,
       "starts": 25,
       "positions": {
@@ -523,7 +535,7 @@
       "substitutedIn": 4,
       "substitutedOut": 0
     },
-    "迪萨西": {
+    "2_迪萨西": {
       "name": "迪萨西",
       "number": 2,
       "matches": 15,
@@ -538,7 +550,7 @@
       "substitutedIn": 2,
       "substitutedOut": 0
     },
-    "卡萨代伊": {
+    "31_卡萨代伊": {
       "name": "卡萨代伊",
       "number": 31,
       "matches": 4,
@@ -550,7 +562,7 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "桑乔": {
+    "19_桑乔": {
       "name": "桑乔",
       "number": 19,
       "matches": 28,
@@ -565,9 +577,9 @@
       "substitutedIn": 9,
       "substitutedOut": 0
     },
-    "R.詹姆斯": {
+    "24_R.詹姆斯": {
       "name": "R.詹姆斯",
-      "number": 0,
+      "number": 24,
       "matches": 18,
       "starts": 10,
       "positions": {
@@ -581,7 +593,7 @@
       "substitutedIn": 4,
       "substitutedOut": 0
     },
-    "贝蒂尼里": {
+    "13_贝蒂尼里": {
       "name": "贝蒂尼里",
       "number": 13,
       "matches": 4,
@@ -593,7 +605,7 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "乔治": {
+    "32_乔治": {
       "name": "乔治",
       "number": 32,
       "matches": 14,
@@ -605,7 +617,7 @@
       "substitutedIn": 6,
       "substitutedOut": 0
     },
-    "萨基": {
+    "51_萨基": {
       "name": "萨基",
       "number": 51,
       "matches": 1,
@@ -617,7 +629,7 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "阿昌蓬": {
+    "34_阿昌蓬": {
       "name": "阿昌蓬",
       "number": 34,
       "matches": 18,
@@ -631,9 +643,9 @@
       "substitutedIn": 2,
       "substitutedOut": 0
     },
-    "查洛巴": {
+    "23_查洛巴": {
       "name": "查洛巴",
-      "number": 0,
+      "number": 23,
       "matches": 11,
       "starts": 8,
       "positions": {
@@ -646,7 +658,7 @@
       "substitutedIn": 2,
       "substitutedOut": 0
     },
-    "A·安塞尔米诺": {
+    "30_A·安塞尔米诺": {
       "name": "A·安塞尔米诺",
       "number": 30,
       "matches": 1,
@@ -658,7 +670,7 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "阿穆古": {
+    "39_阿穆古": {
       "name": "阿穆古",
       "number": 39,
       "matches": 4,
@@ -670,7 +682,7 @@
       "substitutedIn": 1,
       "substitutedOut": 0
     },
-    "史密斯": {
+    "62_史密斯": {
       "name": "史密斯",
       "number": 62,
       "matches": 2,
@@ -682,7 +694,7 @@
       "substitutedIn": 0,
       "substitutedOut": 0
     },
-    "史·美卡": {
+    "76_史·美卡": {
       "name": "史·美卡",
       "number": 76,
       "matches": 2,
@@ -694,7 +706,7 @@
       "substitutedIn": 1,
       "substitutedOut": 0
     },
-    "G.安特维": {
+    "64_G.安特维": {
       "name": "G.安特维",
       "number": 64,
       "matches": 1,

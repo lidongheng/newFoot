@@ -14,13 +14,13 @@ class ClubAnalyzer {
   /**
    * 初始化分析器
    * @param {Object} options 配置选项
-   * @param {number} options.leagueId 联赛ID（如36表示英超）
+   * @param {string} options.leagueId 联赛ID（如s36表示英超）
    * @param {number} options.serial 球队序号（如24表示切尔西）
    * @param {boolean} options.isNation 是否国家队分析
    * @param {number} options.roundSerial 准备开打的轮次
    */
   constructor(options = {}) {
-    this.leagueId = options.leagueId || 36;
+    this.leagueId = options.leagueId || 's36'; // 默认英超
     this.serial = options.serial || null;
     this.isNation = options.isNation || false;
     this.roundSerial = options.roundSerial || null;
@@ -37,7 +37,7 @@ class ClubAnalyzer {
    */
   async readLeagueData() {
     try {
-      const filePath = path.resolve(__dirname, `match_center/s${this.leagueId}.js`)
+      const filePath = path.resolve(__dirname, `match_center/${this.leagueId}.js`)
       const fileContent = fs.readFileSync(filePath, 'utf8')
 
       // 创建一个安全的执行环境
