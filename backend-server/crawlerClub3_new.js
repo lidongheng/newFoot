@@ -708,6 +708,28 @@ if (require.main === module) {
         console.log('分析完成!');
         console.log(`最常用阵型: ${report.mostUsedFormation}`);
         console.log(`分析球员数量: ${Object.keys(report.players).length}`);
+        
+        // 输出推荐首发阵容
+        const lineup = report.recommendedLineup;
+        if (lineup && lineup.length > 0) {
+          // 将球员按位置分组
+          const gk = lineup.filter(p => p.recommendedPosition === 'GK').map(p => `${p.number}-${p.name}`);
+          const defenders = lineup.filter(p => ['LB', 'CB', 'RB', 'LWB', 'RWB'].includes(p.recommendedPosition)).map(p => `${p.number}-${p.name}`);
+          const midfielders = lineup.filter(p => ['CDM', 'CM', 'LM', 'RM', 'CAM', 'LDM', 'RDM', 'LCM', 'RCM', 'LAM', 'RAM'].includes(p.recommendedPosition)).map(p => `${p.number}-${p.name}`);
+          const forwards = lineup.filter(p => ['LW', 'RW', 'ST'].includes(p.recommendedPosition)).map(p => `${p.number}-${p.name}`);
+          
+          // 格式化输出
+          const formattedLineup = [
+            gk.join('，'),
+            defenders.join('，'),
+            midfielders.join('，'),
+            forwards.join('，')
+          ].join('/');
+          
+          console.log(`推荐首发阵容: ${formattedLineup}`);
+        } else {
+          console.log('无法生成推荐首发阵容，数据不足');
+        }
       })
       .catch(error => {
         console.error('分析失败:', error);
