@@ -1,0 +1,5 @@
+./backend-server/node_modules/
+./front-server/node_modules/
+
+./backend-server/pnpm-lock.yaml
+./front-server/pnpm-lock.yaml
