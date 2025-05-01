@@ -1,5 +1,5 @@
 {
-  "watch": ["index.js", "calculate/"],
+  "watch": ["index.js", "calculate/", "routes/"],
   "ext": "js,json",
   "ignore": ["node_modules/"],
   "delay": "500",
