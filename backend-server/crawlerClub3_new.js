@@ -201,7 +201,7 @@ class ClubAnalyzer {
           }
           
           // 获取进球、助攻和换人信息
-          const events = this.extractPlayerEvents($, element);
+          const events = this.extractPlayerEvents($, element, 'plays');
           
           players.push({
             name: playerName,
@@ -213,7 +213,9 @@ class ClubAnalyzer {
             substitutedIn: events.substitutedIn,
             substitutedOut: events.substitutedOut,
             yellowCards: events.yellowCards,
-            redCards: events.redCards
+            redCards: events.redCards,
+            matches: events.matches,
+            starts: events.starts
           });
         });
         
@@ -224,7 +226,7 @@ class ClubAnalyzer {
           const name = $(element).find('.name a').text().trim();
           
           // 获取进球、助攻和换人信息
-          const events = this.extractPlayerEvents($, element);
+          const events = this.extractPlayerEvents($, element, 'backupPlay');
           
           players.push({
             name: name,
@@ -236,7 +238,9 @@ class ClubAnalyzer {
             substitutedIn: events.substitutedIn,
             substitutedOut: events.substitutedOut,
             yellowCards: events.yellowCards,
-            redCards: events.redCards
+            redCards: events.redCards,
+            matches: events.matches,
+            starts: events.starts
           });
         });
         
@@ -276,45 +280,54 @@ class ClubAnalyzer {
    * 提取球员事件信息（进球、助攻、换人等）
    * @param {Object} $ cheerio实例
    * @param {Object} element 球员元素
+   * @param {string} playerType 球员类型（'plays'表示首发球员，'backupPlay'表示替补球员）
    * @returns {Object} 事件数据
    */
-  extractPlayerEvents($, element) {
+  extractPlayerEvents($, element, playerType = 'plays') {
     const events = {
       goals: 0,
       assists: 0,
       substitutedIn: false,
       substitutedOut: false,
       yellowCards: 0,
-      redCards: 0
+      redCards: 0,
+      matches: playerType === 'plays' ? 1 : 0,
+      starts: playerType === 'plays' ? 1 : 0
     };
     
-    // 查找所有事件图标 - 考虑多种可能的图片位置
-    const imgSelectors = [
-      'div[id^="playerTech_"] img', // 旧版页面使用playerTech_开头的div ID
-    ];
+    // 根据球员类型选择不同的选择器
+    let selector;
+    if (playerType === 'plays') {
+      // 首发球员使用playerTech_开头的div ID
+      selector = 'div[id^="playerTech_"] img';
+    } else if (playerType === 'backupPlay') {
+      // 替补球员使用eventicon类
+      selector = '.eventicon img';
+    }
     
-    // 对每个选择器尝试查找图片
-    imgSelectors.forEach(selector => {
-      $(element).find(selector).each((i, img) => {
-        const title = $(img).attr('title') || '';
-        const alt = $(img).attr('alt') || '';
-        const src = $(img).attr('src') || '';
-        
-        // 根据图片src、title或alt判断事件类型
-        if (src.split('/').pop() === '1.png') {
-          events.goals++;
-        } else if (src.split('/').pop() === '12.png') {
-          events.assists++;
-        } else if (src.split('/').pop() === '4.png') {
-          events.substitutedIn = true;
-        } else if (src.split('/').pop() === '5.png') {
-          events.substitutedOut = true;
-        } else if (src.split('/').pop() === '3.png') {
-          events.yellowCards++;
-        } else if (src.split('/').pop() === '2.png') {
-          events.redCards++;
+    // 查找事件图标
+    $(element).find(selector).each((i, img) => {
+      const title = $(img).attr('title') || '';
+      const alt = $(img).attr('alt') || '';
+      const src = $(img).attr('src') || '';
+      
+      // 根据图片src、title或alt判断事件类型
+      if (['1.png', '7.png', '8.png'].includes(src.split('/').pop())) {
+        events.goals++;
+      } else if (src.split('/').pop() === '12.png') {
+        events.assists++;
+      } else if (src.split('/').pop() === '4.png') {
+        events.substitutedIn = true;
+        if (playerType === 'backupPlay') {
+          events.matches++;
         }
-      });
+      } else if (src.split('/').pop() === '5.png') {
+        events.substitutedOut = true;
+      } else if (src.split('/').pop() === '3.png') {
+        events.yellowCards++;
+      } else if (src.split('/').pop() === '2.png') {
+        events.redCards++;
+      }
     });
     
     return events;
@@ -406,7 +419,7 @@ class ClubAnalyzer {
     
     // 更新球员数据
     for (const player of players) {
-      const { name, number, position, isStarter, goals, assists, substitutedIn, substitutedOut } = player;
+      const { name, number, position, isStarter, goals, assists, substitutedIn, substitutedOut, matches, starts } = player;
       
       // 创建球员唯一标识符 - 如果不是国家队，仅使用球衣号码作为唯一标识符
       const playerKey = this.isNation ? name : `${number}`;
@@ -436,20 +449,16 @@ class ClubAnalyzer {
         playerData.alternativeNames.push(name);
       }
       
-      playerData.matches++;
-      
-      if (isStarter) {
-        playerData.starts++;
-      }
-      
       // 更新位置统计
       if (position !== 'Unknown' && position !== 'Substitute') {
         playerData.positions[position] = (playerData.positions[position] || 0) + 1;
       }
       
-      // 正常累加进球和助攻
-      playerData.goals += goals;
-      playerData.assists += assists;
+      // 正常累加进球、助攻、出场次数、首发次数
+      playerData.goals += goals || 0;
+      playerData.assists += assists || 0;
+      playerData.matches += matches || 0;
+      playerData.starts += starts || 0;
       
       if (substitutedIn) {
         playerData.substitutedIn++;
