@@ -1,20 +1,20 @@
 {
   "teamId": 24,
   "isNation": false,
-  "analysisDate": "2025-05-01T13:59:25.478Z",
+  "analysisDate": "2025-05-01T14:43:32.858Z",
   "mostUsedFormation": "4231",
   "recommendedLineup": [
     {
       "name": "桑切斯",
       "number": 1,
-      "matches": 33,
-      "starts": 27,
+      "matches": 34,
+      "starts": 28,
       "positions": {
-        "GK": 27
+        "GK": 28
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2430,
+      "minutesPlayed": 2520,
       "substitutedIn": 0,
       "substitutedOut": 0,
       "alternativeNames": [],
@@ -23,14 +23,14 @@
     {
       "name": "列维·科尔威尔",
       "number": 6,
-      "matches": 32,
-      "starts": 30,
+      "matches": 33,
+      "starts": 31,
       "positions": {
-        "CB": 30
+        "CB": 31
       },
-      "goals": 0,
-      "assists": 0,
-      "minutesPlayed": 2700,
+      "goals": 1,
+      "assists": 1,
+      "minutesPlayed": 2790,
       "substitutedIn": 0,
       "substitutedOut": 0,
       "alternativeNames": [
@@ -41,15 +41,15 @@
     {
       "name": "M.凯塞多",
       "number": 25,
-      "matches": 33,
-      "starts": 33,
+      "matches": 34,
+      "starts": 34,
       "positions": {
         "CDM": 30,
-        "RB": 3
+        "RB": 4
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2970,
+      "minutesPlayed": 3060,
       "substitutedIn": 0,
       "substitutedOut": 0,
       "alternativeNames": [],
@@ -58,14 +58,14 @@
     {
       "name": "库库雷利亚",
       "number": 3,
-      "matches": 31,
-      "starts": 28,
+      "matches": 32,
+      "starts": 29,
       "positions": {
-        "LB": 28
+        "LB": 29
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2580,
+      "minutesPlayed": 2670,
       "substitutedIn": 3,
       "substitutedOut": 0,
       "alternativeNames": [],
@@ -91,15 +91,15 @@
     {
       "name": "恩佐·费尔南德兹",
       "number": 8,
-      "matches": 31,
-      "starts": 27,
+      "matches": 32,
+      "starts": 28,
       "positions": {
         "CAM": 3,
-        "CDM": 24
+        "CDM": 25
       },
       "goals": 0,
       "assists": 1,
-      "minutesPlayed": 2510,
+      "minutesPlayed": 2600,
       "substitutedIn": 4,
       "substitutedOut": 0,
       "alternativeNames": [
@@ -110,7 +110,7 @@
     {
       "name": "R.詹姆斯",
       "number": 24,
-      "matches": 18,
+      "matches": 19,
       "starts": 10,
       "positions": {
         "RB": 5,
@@ -119,8 +119,8 @@
       },
       "goals": 1,
       "assists": 0,
-      "minutesPlayed": 980,
-      "substitutedIn": 4,
+      "minutesPlayed": 1000,
+      "substitutedIn": 5,
       "substitutedOut": 0,
       "alternativeNames": [],
       "recommendedPosition": "CDM"
@@ -128,15 +128,15 @@
     {
       "name": "C.帕尔默",
       "number": 20,
-      "matches": 32,
-      "starts": 31,
+      "matches": 33,
+      "starts": 32,
       "positions": {
         "RAM": 2,
-        "CAM": 29
+        "CAM": 30
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2810,
+      "minutesPlayed": 2900,
       "substitutedIn": 1,
       "substitutedOut": 0,
       "alternativeNames": [],
@@ -145,14 +145,15 @@
     {
       "name": "N·马杜埃凯",
       "number": 11,
-      "matches": 28,
-      "starts": 22,
+      "matches": 29,
+      "starts": 23,
       "positions": {
-        "RAM": 22
+        "RAM": 22,
+        "LAM": 1
       },
       "goals": 0,
       "assists": 1,
-      "minutesPlayed": 2080,
+      "minutesPlayed": 2170,
       "substitutedIn": 5,
       "substitutedOut": 0,
       "alternativeNames": [],
@@ -161,16 +162,16 @@
     {
       "name": "内托",
       "number": 7,
-      "matches": 30,
-      "starts": 19,
+      "matches": 31,
+      "starts": 20,
       "positions": {
         "LAM": 9,
-        "RAM": 6,
+        "RAM": 7,
         "ST": 4
       },
       "goals": 1,
       "assists": 1,
-      "minutesPlayed": 1910,
+      "minutesPlayed": 2000,
       "substitutedIn": 10,
       "substitutedOut": 0,
       "alternativeNames": [],
@@ -179,14 +180,14 @@
     {
       "name": "N·杰克逊",
       "number": 15,
-      "matches": 28,
-      "starts": 25,
+      "matches": 29,
+      "starts": 26,
       "positions": {
-        "ST": 25
+        "ST": 26
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2290,
+      "minutesPlayed": 2380,
       "substitutedIn": 2,
       "substitutedOut": 0,
       "alternativeNames": [
@@ -199,14 +200,14 @@
     "1": {
       "name": "桑切斯",
       "number": 1,
-      "matches": 33,
-      "starts": 27,
+      "matches": 34,
+      "starts": 28,
       "positions": {
-        "GK": 27
+        "GK": 28
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2430,
+      "minutesPlayed": 2520,
       "substitutedIn": 0,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -230,14 +231,14 @@
     "3": {
       "name": "库库雷利亚",
       "number": 3,
-      "matches": 31,
-      "starts": 28,
+      "matches": 32,
+      "starts": 29,
       "positions": {
-        "LB": 28
+        "LB": 29
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2580,
+      "minutesPlayed": 2670,
       "substitutedIn": 3,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -245,7 +246,7 @@
     "4": {
       "name": "阿达拉比奥约",
       "number": 4,
-      "matches": 33,
+      "matches": 34,
       "starts": 13,
       "positions": {
         "CB": 13
@@ -260,7 +261,7 @@
     "5": {
       "name": "贝迪亚沙尔",
       "number": 5,
-      "matches": 17,
+      "matches": 18,
       "starts": 3,
       "positions": {
         "CB": 3
@@ -275,14 +276,14 @@
     "6": {
       "name": "列维·科尔威尔",
       "number": 6,
-      "matches": 32,
-      "starts": 30,
+      "matches": 33,
+      "starts": 31,
       "positions": {
-        "CB": 30
+        "CB": 31
       },
-      "goals": 0,
-      "assists": 0,
-      "minutesPlayed": 2700,
+      "goals": 1,
+      "assists": 1,
+      "minutesPlayed": 2790,
       "substitutedIn": 0,
       "substitutedOut": 0,
       "alternativeNames": [
@@ -292,16 +293,16 @@
     "7": {
       "name": "内托",
       "number": 7,
-      "matches": 30,
-      "starts": 19,
+      "matches": 31,
+      "starts": 20,
       "positions": {
         "LAM": 9,
-        "RAM": 6,
+        "RAM": 7,
         "ST": 4
       },
       "goals": 1,
       "assists": 1,
-      "minutesPlayed": 1910,
+      "minutesPlayed": 2000,
       "substitutedIn": 10,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -309,15 +310,15 @@
     "8": {
       "name": "恩佐·费尔南德兹",
       "number": 8,
-      "matches": 31,
-      "starts": 27,
+      "matches": 32,
+      "starts": 28,
       "positions": {
         "CAM": 3,
-        "CDM": 24
+        "CDM": 25
       },
       "goals": 0,
       "assists": 1,
-      "minutesPlayed": 2510,
+      "minutesPlayed": 2600,
       "substitutedIn": 4,
       "substitutedOut": 0,
       "alternativeNames": [
@@ -342,14 +343,15 @@
     "11": {
       "name": "N·马杜埃凯",
       "number": 11,
-      "matches": 28,
-      "starts": 22,
+      "matches": 29,
+      "starts": 23,
       "positions": {
-        "RAM": 22
+        "RAM": 22,
+        "LAM": 1
       },
       "goals": 0,
       "assists": 1,
-      "minutesPlayed": 2080,
+      "minutesPlayed": 2170,
       "substitutedIn": 5,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -357,7 +359,7 @@
     "12": {
       "name": "F.乔金森",
       "number": 12,
-      "matches": 32,
+      "matches": 33,
       "starts": 6,
       "positions": {
         "GK": 6
@@ -400,14 +402,14 @@
     "15": {
       "name": "N·杰克逊",
       "number": 15,
-      "matches": 28,
-      "starts": 25,
+      "matches": 29,
+      "starts": 26,
       "positions": {
-        "ST": 25
+        "ST": 26
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2290,
+      "minutesPlayed": 2380,
       "substitutedIn": 2,
       "substitutedOut": 0,
       "alternativeNames": [
@@ -417,7 +419,7 @@
     "18": {
       "name": "恩昆库",
       "number": 18,
-      "matches": 32,
+      "matches": 33,
       "starts": 9,
       "positions": {
         "LAM": 5,
@@ -433,7 +435,7 @@
     "19": {
       "name": "内托",
       "number": 19,
-      "matches": 29,
+      "matches": 30,
       "starts": 18,
       "positions": {
         "LAM": 15,
@@ -441,8 +443,8 @@
       },
       "goals": 2,
       "assists": 1,
-      "minutesPlayed": 1820,
-      "substitutedIn": 10,
+      "minutesPlayed": 1840,
+      "substitutedIn": 11,
       "substitutedOut": 0,
       "alternativeNames": [
         "桑乔"
@@ -451,15 +453,15 @@
     "20": {
       "name": "C.帕尔默",
       "number": 20,
-      "matches": 32,
-      "starts": 31,
+      "matches": 33,
+      "starts": 32,
       "positions": {
         "RAM": 2,
-        "CAM": 29
+        "CAM": 30
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2810,
+      "minutesPlayed": 2900,
       "substitutedIn": 1,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -467,7 +469,7 @@
     "22": {
       "name": "K·霍尔",
       "number": 22,
-      "matches": 21,
+      "matches": 22,
       "starts": 2,
       "positions": {
         "CDM": 1,
@@ -475,23 +477,23 @@
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 360,
-      "substitutedIn": 9,
+      "minutesPlayed": 380,
+      "substitutedIn": 10,
       "substitutedOut": 0,
       "alternativeNames": []
     },
     "23": {
       "name": "查洛巴",
       "number": 23,
-      "matches": 11,
-      "starts": 8,
+      "matches": 12,
+      "starts": 9,
       "positions": {
-        "CB": 7,
+        "CB": 8,
         "RB": 1
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 760,
+      "minutesPlayed": 850,
       "substitutedIn": 2,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -499,7 +501,7 @@
     "24": {
       "name": "R.詹姆斯",
       "number": 24,
-      "matches": 18,
+      "matches": 19,
       "starts": 10,
       "positions": {
         "RB": 5,
@@ -508,23 +510,23 @@
       },
       "goals": 1,
       "assists": 0,
-      "minutesPlayed": 980,
-      "substitutedIn": 4,
+      "minutesPlayed": 1000,
+      "substitutedIn": 5,
       "substitutedOut": 0,
       "alternativeNames": []
     },
     "25": {
       "name": "M.凯塞多",
       "number": 25,
-      "matches": 33,
-      "starts": 33,
+      "matches": 34,
+      "starts": 34,
       "positions": {
         "CDM": 30,
-        "RB": 3
+        "RB": 4
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 2970,
+      "minutesPlayed": 3060,
       "substitutedIn": 0,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -590,20 +592,20 @@
     "32": {
       "name": "乔治",
       "number": 32,
-      "matches": 14,
+      "matches": 15,
       "starts": 0,
       "positions": {},
       "goals": 1,
       "assists": 1,
-      "minutesPlayed": 120,
-      "substitutedIn": 6,
+      "minutesPlayed": 140,
+      "substitutedIn": 7,
       "substitutedOut": 0,
       "alternativeNames": []
     },
     "34": {
       "name": "阿昌蓬",
       "number": 34,
-      "matches": 18,
+      "matches": 19,
       "starts": 2,
       "positions": {
         "CB": 2
@@ -659,14 +661,14 @@
     "45": {
       "name": "拉维亚",
       "number": 45,
-      "matches": 15,
-      "starts": 8,
+      "matches": 16,
+      "starts": 9,
       "positions": {
-        "CDM": 8
+        "CDM": 9
       },
       "goals": 0,
       "assists": 0,
-      "minutesPlayed": 780,
+      "minutesPlayed": 870,
       "substitutedIn": 3,
       "substitutedOut": 0,
       "alternativeNames": []
@@ -725,6 +727,6 @@
     }
   },
   "formationStats": {
-    "4231": 33
+    "4231": 34
   }
 }

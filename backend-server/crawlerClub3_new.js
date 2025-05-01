@@ -392,7 +392,7 @@ class ClubAnalyzer {
    * @param {Object} matchData 比赛数据
    */
   processMatchPlayerData(matchData) {
-    const { players, formation } = matchData;
+    const { players, formation, id: matchId } = matchData;
     
     // 更新阵型使用统计
     this.formationStats[formation] = (this.formationStats[formation] || 0) + 1;
@@ -440,6 +440,7 @@ class ClubAnalyzer {
         playerData.positions[position] = (playerData.positions[position] || 0) + 1;
       }
       
+      // 正常累加进球和助攻
       playerData.goals += goals;
       playerData.assists += assists;
       

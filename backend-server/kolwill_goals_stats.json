@@ -1,0 +1,12 @@
+{
+  "player": {
+    "name": "科尔威尔",
+    "number": 6
+  },
+  "statistics": {
+    "totalGoals": 0,
+    "totalAssists": 0,
+    "matchesWithGoals": [],
+    "matchesWithAssists": []
+  }
+}
