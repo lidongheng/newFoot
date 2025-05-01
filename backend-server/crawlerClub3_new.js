@@ -215,7 +215,7 @@ class ClubAnalyzer {
             yellowCards: events.yellowCards,
             redCards: events.redCards,
             matches: events.matches,
-            starts: events.starts
+            starts: events.starts,
           });
         });
         
@@ -240,7 +240,7 @@ class ClubAnalyzer {
             yellowCards: events.yellowCards,
             redCards: events.redCards,
             matches: events.matches,
-            starts: events.starts
+            starts: events.starts,
           });
         });
         
@@ -419,7 +419,7 @@ class ClubAnalyzer {
     
     // 更新球员数据
     for (const player of players) {
-      const { name, number, position, isStarter, goals, assists, substitutedIn, substitutedOut, matches, starts } = player;
+      const { name, number, position, isStarter, goals, assists, substitutedIn, substitutedOut, yellowCards, redCards, matches, starts } = player;
       
       // 创建球员唯一标识符 - 如果不是国家队，仅使用球衣号码作为唯一标识符
       const playerKey = this.isNation ? name : `${number}`;
@@ -437,7 +437,10 @@ class ClubAnalyzer {
           minutesPlayed: 0,
           substitutedIn: 0,
           substitutedOut: 0,
-          alternativeNames: [] // 添加一个数组来记录球员的所有名称变体
+          alternativeNames: [], // 添加一个数组来记录球员的所有名称变体
+          age: 0, // 添加年龄字段
+          socialStatus: 0, // 添加身价字段
+          nation: '' // 添加国家字段
         };
       }
       
@@ -684,6 +687,14 @@ class ClubAnalyzer {
         }
       }
       
+      // 4.5 从球队JSON文件中获取年龄和身价信息
+      try {
+        console.log(`从JSON文件获取球员年龄和身价信息...`);
+        await this.loadPlayerAgeAndValueData();
+      } catch (error) {
+        console.warn(`获取球员年龄和身价信息失败: ${error.message}`);
+      }
+      
       // 5. 生成分析报告
       const report = this.generateTeamReport();
       
@@ -712,6 +723,75 @@ class ClubAnalyzer {
       throw error;
     }
   }
+
+  /**
+   * 从球队JSON文件中加载球员的年龄和身价数据
+   * @returns {Promise<void>}
+   */
+  async loadPlayerAgeAndValueData() {
+    try {
+      const filePath = path.resolve(__dirname, `./player_center/${this.serial}.json`);
+      
+      if (!fs.existsSync(filePath)) {
+        throw new Error(`球队JSON文件不存在: ${filePath}`);
+      }
+      
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const playersList = JSON.parse(fileContent);
+      
+      // 为每个已记录的球员更新年龄和身价信息
+      for (const playerInfo of playersList) {
+        // 尝试通过球衣号码找到对应的球员
+        const playerKey = this.isNation ? playerInfo.name : `${playerInfo.number}`;
+        const existingPlayer = this.playersData[playerKey];
+        
+        if (existingPlayer) {
+          // 更新年龄
+          if (playerInfo.age) {
+            existingPlayer.age = parseInt(playerInfo.age, 10) || 0;
+          }
+          
+          // 更新身价 (将字符串解析为数值)
+          if (playerInfo.socialStatus) {
+            existingPlayer.socialStatus = parseInt(playerInfo.socialStatus, 10) || 0;
+          }
+          
+          // 更新国家信息
+          if (playerInfo.nation) {
+            existingPlayer.nation = playerInfo.nation;
+          }
+        } else {
+          // 如果当前球员列表中没有该球员，尝试通过名称匹配
+          const matchByName = Object.values(this.playersData).find(p => 
+            p.name === playerInfo.name || 
+            (p.alternativeNames && p.alternativeNames.includes(playerInfo.name))
+          );
+          
+          if (matchByName) {
+            // 更新年龄和身价
+            if (playerInfo.age) {
+              matchByName.age = parseInt(playerInfo.age, 10) || 0;
+            }
+            
+            if (playerInfo.socialStatus) {
+              matchByName.socialStatus = parseInt(playerInfo.socialStatus, 10) || 0;
+            }
+            
+            // 更新国家信息
+            if (playerInfo.nation) {
+              matchByName.nation = playerInfo.nation;
+            }
+          }
+          // 如果找不到匹配的球员，就跳过
+        }
+      }
+      
+      console.log(`成功从JSON文件获取球员信息`);
+    } catch (error) {
+      console.error(`加载球员年龄和身价数据失败: ${error.message}`);
+      throw error;
+    }
+  }
 }
 
 // 导出模块
@@ -737,6 +817,38 @@ if (require.main === module) {
         console.log('分析完成!');
         console.log(`最常用阵型: ${report.mostUsedFormation}`);
         console.log(`分析球员数量: ${Object.keys(report.players).length}`);
+        
+        // 输出所有上场过的球员信息，按首发数和出场数排序
+        console.log('\n所有上场球员信息:');
+        const allPlayers = Object.values(report.players)
+          .filter(p => p.matches > 0) // 只包含上场过的球员
+          .sort((a, b) => {
+            // 首先按首发数降序排序
+            if (b.starts !== a.starts) {
+              return b.starts - a.starts;
+            }
+            // 首发数相同则按出场数降序排序
+            return b.matches - a.matches;
+          });
+        
+        allPlayers.forEach(player => {
+          // 过滤掉Unknown和Substitute位置
+          const positionsObj = Object.entries(player.positions)
+            .filter(([pos]) => pos !== 'Unknown' && pos !== 'Substitute')
+            .sort((a, b) => b[1] - a[1]) // 按位置出场次数由大到小排序
+            .reduce((obj, [pos, count]) => {
+              obj[pos] = count;
+              return obj;
+            }, {});
+          
+          // 格式化输出球员信息，添加国家、年龄和身价
+          const nationInfo = player.nation || '--';
+          const ageInfo = player.age ? `${player.age}` : '--';
+          const valueInfo = player.socialStatus ? `${player.socialStatus}万欧元` : '--';
+          
+          console.log(`${player.number}-${player.name} ${player.matches}场${player.starts}首发 ${JSON.stringify(positionsObj)} ${nationInfo} ${ageInfo} ${valueInfo}`);
+        });
+        console.log(''); // 添加空行分隔
         
         // 输出推荐首发阵容
         const lineup = report.recommendedLineup;

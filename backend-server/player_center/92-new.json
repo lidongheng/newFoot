@@ -1,0 +1,865 @@
+{
+  "teamId": 92,
+  "isNation": false,
+  "analysisDate": "2025-05-01T17:03:19.246Z",
+  "mostUsedFormation": "4231",
+  "recommendedLineup": [
+    {
+      "name": "西蒙",
+      "number": 1,
+      "matches": 16,
+      "starts": 16,
+      "positions": {
+        "GK": 16
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 1440,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 28,
+      "socialStatus": 2800,
+      "nation": "西班牙",
+      "bestPosition": "GK",
+      "bestPositionAppearances": 16,
+      "recommendedPosition": "GK"
+    },
+    {
+      "name": "贝尔奇切",
+      "number": 17,
+      "matches": 26,
+      "starts": 18,
+      "positions": {
+        "LB": 18
+      },
+      "goals": 0,
+      "assists": 2,
+      "minutesPlayed": 1740,
+      "substitutedIn": 8,
+      "substitutedOut": 2,
+      "alternativeNames": [],
+      "age": 35,
+      "socialStatus": 150,
+      "nation": "西班牙",
+      "bestPosition": "LB",
+      "bestPositionAppearances": 18,
+      "recommendedPosition": "LB"
+    },
+    {
+      "name": "D.维维安",
+      "number": 3,
+      "matches": 27,
+      "starts": 24,
+      "positions": {
+        "CB": 24
+      },
+      "goals": 3,
+      "assists": 0,
+      "minutesPlayed": 2220,
+      "substitutedIn": 3,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 26,
+      "socialStatus": 4000,
+      "nation": "西班牙",
+      "bestPosition": "CB",
+      "bestPositionAppearances": 24,
+      "recommendedPosition": "CB"
+    },
+    {
+      "name": "艾托帕雷德斯",
+      "number": 4,
+      "matches": 20,
+      "starts": 18,
+      "positions": {
+        "CB": 18
+      },
+      "goals": 3,
+      "assists": 0,
+      "minutesPlayed": 1580,
+      "substitutedIn": 2,
+      "substitutedOut": 4,
+      "alternativeNames": [],
+      "age": 25,
+      "socialStatus": 2200,
+      "nation": "西班牙",
+      "bestPosition": "CB",
+      "bestPositionAppearances": 18,
+      "recommendedPosition": "CB"
+    },
+    {
+      "name": "戈罗萨韦尔",
+      "number": 2,
+      "matches": 18,
+      "starts": 15,
+      "positions": {
+        "RB": 15
+      },
+      "goals": 0,
+      "assists": 2,
+      "minutesPlayed": 1270,
+      "substitutedIn": 3,
+      "substitutedOut": 7,
+      "alternativeNames": [],
+      "age": 29,
+      "socialStatus": 500,
+      "nation": "西班牙",
+      "bestPosition": "RB",
+      "bestPositionAppearances": 15,
+      "recommendedPosition": "RB"
+    },
+    {
+      "name": "马尔科姆·阿杜",
+      "number": 23,
+      "matches": 28,
+      "starts": 21,
+      "positions": {
+        "CDM": 21
+      },
+      "goals": 2,
+      "assists": 1,
+      "minutesPlayed": 1890,
+      "substitutedIn": 7,
+      "substitutedOut": 7,
+      "alternativeNames": [
+        "M·贾雷吉扎尔"
+      ],
+      "age": 22,
+      "socialStatus": 1000,
+      "nation": "西班牙",
+      "bestPosition": "CDM",
+      "bestPositionAppearances": 21,
+      "recommendedPosition": "CDM"
+    },
+    {
+      "name": "本纳特.迪亚兹",
+      "number": 24,
+      "matches": 27,
+      "starts": 19,
+      "positions": {
+        "CDM": 19
+      },
+      "goals": 1,
+      "assists": 0,
+      "minutesPlayed": 1590,
+      "substitutedIn": 8,
+      "substitutedOut": 14,
+      "alternativeNames": [],
+      "age": 24,
+      "socialStatus": 2000,
+      "nation": "西班牙",
+      "bestPosition": "CDM",
+      "bestPositionAppearances": 19,
+      "recommendedPosition": "CDM"
+    },
+    {
+      "name": "贝伦格尔",
+      "number": 7,
+      "matches": 32,
+      "starts": 24,
+      "positions": {
+        "LAM": 9,
+        "RAM": 3,
+        "LW": 1,
+        "CAM": 5,
+        "ST": 5,
+        "LDM": 1
+      },
+      "goals": 5,
+      "assists": 7,
+      "minutesPlayed": 1900,
+      "substitutedIn": 8,
+      "substitutedOut": 21,
+      "alternativeNames": [],
+      "age": 30,
+      "socialStatus": 1200,
+      "nation": "西班牙",
+      "bestPosition": "LAM",
+      "bestPositionAppearances": 9,
+      "recommendedPosition": "LAM"
+    },
+    {
+      "name": "森塞特",
+      "number": 8,
+      "matches": 25,
+      "starts": 18,
+      "positions": {
+        "CAM": 16,
+        "RDM": 1,
+        "ST": 1
+      },
+      "goals": 15,
+      "assists": 1,
+      "minutesPlayed": 1480,
+      "substitutedIn": 7,
+      "substitutedOut": 14,
+      "alternativeNames": [],
+      "age": 25,
+      "socialStatus": 5000,
+      "nation": "西班牙",
+      "bestPosition": "CAM",
+      "bestPositionAppearances": 16,
+      "recommendedPosition": "CAM"
+    },
+    {
+      "name": "威廉姆斯",
+      "number": 9,
+      "matches": 32,
+      "starts": 28,
+      "positions": {
+        "RAM": 23,
+        "ST": 2,
+        "RW": 1,
+        "RDM": 2
+      },
+      "goals": 6,
+      "assists": 8,
+      "minutesPlayed": 2460,
+      "substitutedIn": 4,
+      "substitutedOut": 7,
+      "alternativeNames": [],
+      "age": 31,
+      "socialStatus": 2000,
+      "nation": "加纳",
+      "bestPosition": "RAM",
+      "bestPositionAppearances": 23,
+      "recommendedPosition": "RAM"
+    },
+    {
+      "name": "G.罗德里格斯",
+      "number": 12,
+      "matches": 32,
+      "starts": 18,
+      "positions": {
+        "ST": 18
+      },
+      "goals": 6,
+      "assists": 2,
+      "minutesPlayed": 1600,
+      "substitutedIn": 14,
+      "substitutedOut": 15,
+      "alternativeNames": [],
+      "age": 29,
+      "socialStatus": 1500,
+      "nation": "西班牙",
+      "bestPosition": "ST",
+      "bestPositionAppearances": 18,
+      "recommendedPosition": "ST"
+    }
+  ],
+  "players": {
+    "1": {
+      "name": "西蒙",
+      "number": 1,
+      "matches": 16,
+      "starts": 16,
+      "positions": {
+        "GK": 16
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 1440,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 28,
+      "socialStatus": 2800,
+      "nation": "西班牙"
+    },
+    "2": {
+      "name": "戈罗萨韦尔",
+      "number": 2,
+      "matches": 18,
+      "starts": 15,
+      "positions": {
+        "RB": 15
+      },
+      "goals": 0,
+      "assists": 2,
+      "minutesPlayed": 1270,
+      "substitutedIn": 3,
+      "substitutedOut": 7,
+      "alternativeNames": [],
+      "age": 29,
+      "socialStatus": 500,
+      "nation": "西班牙"
+    },
+    "3": {
+      "name": "D.维维安",
+      "number": 3,
+      "matches": 27,
+      "starts": 24,
+      "positions": {
+        "CB": 24
+      },
+      "goals": 3,
+      "assists": 0,
+      "minutesPlayed": 2220,
+      "substitutedIn": 3,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 26,
+      "socialStatus": 4000,
+      "nation": "西班牙"
+    },
+    "4": {
+      "name": "艾托帕雷德斯",
+      "number": 4,
+      "matches": 20,
+      "starts": 18,
+      "positions": {
+        "CB": 18
+      },
+      "goals": 3,
+      "assists": 0,
+      "minutesPlayed": 1580,
+      "substitutedIn": 2,
+      "substitutedOut": 4,
+      "alternativeNames": [],
+      "age": 25,
+      "socialStatus": 2200,
+      "nation": "西班牙"
+    },
+    "5": {
+      "name": "耶莱",
+      "number": 5,
+      "matches": 19,
+      "starts": 18,
+      "positions": {
+        "CB": 18
+      },
+      "goals": 1,
+      "assists": 0,
+      "minutesPlayed": 1620,
+      "substitutedIn": 1,
+      "substitutedOut": 1,
+      "alternativeNames": [],
+      "age": 30,
+      "socialStatus": 750,
+      "nation": "西班牙"
+    },
+    "6": {
+      "name": "贝斯加",
+      "number": 6,
+      "matches": 21,
+      "starts": 9,
+      "positions": {
+        "CDM": 9
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 930,
+      "substitutedIn": 12,
+      "substitutedOut": 6,
+      "alternativeNames": [],
+      "age": 32,
+      "socialStatus": 300,
+      "nation": "西班牙"
+    },
+    "7": {
+      "name": "贝伦格尔",
+      "number": 7,
+      "matches": 32,
+      "starts": 24,
+      "positions": {
+        "LAM": 9,
+        "RAM": 3,
+        "LW": 1,
+        "CAM": 5,
+        "ST": 5,
+        "LDM": 1
+      },
+      "goals": 5,
+      "assists": 7,
+      "minutesPlayed": 1900,
+      "substitutedIn": 8,
+      "substitutedOut": 21,
+      "alternativeNames": [],
+      "age": 30,
+      "socialStatus": 1200,
+      "nation": "西班牙"
+    },
+    "8": {
+      "name": "森塞特",
+      "number": 8,
+      "matches": 25,
+      "starts": 18,
+      "positions": {
+        "CAM": 16,
+        "RDM": 1,
+        "ST": 1
+      },
+      "goals": 15,
+      "assists": 1,
+      "minutesPlayed": 1480,
+      "substitutedIn": 7,
+      "substitutedOut": 14,
+      "alternativeNames": [],
+      "age": 25,
+      "socialStatus": 5000,
+      "nation": "西班牙"
+    },
+    "9": {
+      "name": "威廉姆斯",
+      "number": 9,
+      "matches": 32,
+      "starts": 28,
+      "positions": {
+        "RAM": 23,
+        "ST": 2,
+        "RW": 1,
+        "RDM": 2
+      },
+      "goals": 6,
+      "assists": 8,
+      "minutesPlayed": 2460,
+      "substitutedIn": 4,
+      "substitutedOut": 7,
+      "alternativeNames": [],
+      "age": 31,
+      "socialStatus": 2000,
+      "nation": "加纳"
+    },
+    "10": {
+      "name": "N·威廉姆斯",
+      "number": 10,
+      "matches": 28,
+      "starts": 21,
+      "positions": {
+        "LAM": 19,
+        "RAM": 1,
+        "LDM": 1
+      },
+      "goals": 5,
+      "assists": 5,
+      "minutesPlayed": 1850,
+      "substitutedIn": 7,
+      "substitutedOut": 9,
+      "alternativeNames": [],
+      "age": 23,
+      "socialStatus": 7000,
+      "nation": "西班牙"
+    },
+    "11": {
+      "name": "阿尔瓦罗·贾洛",
+      "number": 11,
+      "matches": 15,
+      "starts": 6,
+      "positions": {
+        "LAM": 1,
+        "ST": 3,
+        "RAM": 2
+      },
+      "goals": 1,
+      "assists": 0,
+      "minutesPlayed": 600,
+      "substitutedIn": 9,
+      "substitutedOut": 6,
+      "alternativeNames": [],
+      "age": 26,
+      "socialStatus": 1200,
+      "nation": "西班牙"
+    },
+    "12": {
+      "name": "G.罗德里格斯",
+      "number": 12,
+      "matches": 32,
+      "starts": 18,
+      "positions": {
+        "ST": 18
+      },
+      "goals": 6,
+      "assists": 2,
+      "minutesPlayed": 1600,
+      "substitutedIn": 14,
+      "substitutedOut": 15,
+      "alternativeNames": [],
+      "age": 29,
+      "socialStatus": 1500,
+      "nation": "西班牙"
+    },
+    "13": {
+      "name": "朱伦·阿格里扎巴拉",
+      "number": 13,
+      "matches": 14,
+      "starts": 14,
+      "positions": {
+        "GK": 14
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 1240,
+      "substitutedIn": 0,
+      "substitutedOut": 1,
+      "alternativeNames": [],
+      "age": 25,
+      "socialStatus": 1500,
+      "nation": "西班牙"
+    },
+    "14": {
+      "name": "努涅斯",
+      "number": 14,
+      "matches": 8,
+      "starts": 6,
+      "positions": {
+        "CB": 6
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 560,
+      "substitutedIn": 2,
+      "substitutedOut": 1,
+      "alternativeNames": [],
+      "age": 28,
+      "socialStatus": 400,
+      "nation": "西班牙"
+    },
+    "15": {
+      "name": "莱库埃",
+      "number": 15,
+      "matches": 12,
+      "starts": 6,
+      "positions": {
+        "RB": 3,
+        "LB": 3
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 620,
+      "substitutedIn": 6,
+      "substitutedOut": 2,
+      "alternativeNames": [],
+      "age": 32,
+      "socialStatus": 250,
+      "nation": "西班牙"
+    },
+    "16": {
+      "name": "格拉雷塔",
+      "number": 16,
+      "matches": 21,
+      "starts": 14,
+      "positions": {
+        "CDM": 14
+      },
+      "goals": 0,
+      "assists": 4,
+      "minutesPlayed": 1120,
+      "substitutedIn": 7,
+      "substitutedOut": 14,
+      "alternativeNames": [],
+      "age": 32,
+      "socialStatus": 400,
+      "nation": "西班牙"
+    },
+    "17": {
+      "name": "贝尔奇切",
+      "number": 17,
+      "matches": 26,
+      "starts": 18,
+      "positions": {
+        "LB": 18
+      },
+      "goals": 0,
+      "assists": 2,
+      "minutesPlayed": 1740,
+      "substitutedIn": 8,
+      "substitutedOut": 2,
+      "alternativeNames": [],
+      "age": 35,
+      "socialStatus": 150,
+      "nation": "西班牙"
+    },
+    "18": {
+      "name": "德马科斯",
+      "number": 18,
+      "matches": 23,
+      "starts": 15,
+      "positions": {
+        "RB": 15
+      },
+      "goals": 0,
+      "assists": 4,
+      "minutesPlayed": 1410,
+      "substitutedIn": 8,
+      "substitutedOut": 5,
+      "alternativeNames": [],
+      "age": 36,
+      "socialStatus": 150,
+      "nation": "西班牙"
+    },
+    "19": {
+      "name": "哈维尔.马顿",
+      "number": 19,
+      "matches": 3,
+      "starts": 0,
+      "positions": {},
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 60,
+      "substitutedIn": 3,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 0,
+      "socialStatus": 0,
+      "nation": ""
+    },
+    "20": {
+      "name": "戈麦斯",
+      "number": 20,
+      "matches": 27,
+      "starts": 11,
+      "positions": {
+        "CAM": 8,
+        "ST": 2,
+        "LAM": 1
+      },
+      "goals": 1,
+      "assists": 2,
+      "minutesPlayed": 1090,
+      "substitutedIn": 16,
+      "substitutedOut": 11,
+      "alternativeNames": [],
+      "age": 22,
+      "socialStatus": 800,
+      "nation": "西班牙"
+    },
+    "21": {
+      "name": "埃雷拉",
+      "number": 21,
+      "matches": 19,
+      "starts": 6,
+      "positions": {
+        "CDM": 1,
+        "LDM": 1,
+        "ST": 4
+      },
+      "goals": 1,
+      "assists": 1,
+      "minutesPlayed": 680,
+      "substitutedIn": 13,
+      "substitutedOut": 6,
+      "alternativeNames": [
+        "桑纳迪"
+      ],
+      "age": 24,
+      "socialStatus": 40,
+      "nation": "西班牙"
+    },
+    "22": {
+      "name": "尼科.塞拉诺",
+      "number": 22,
+      "matches": 4,
+      "starts": 1,
+      "positions": {
+        "RAM": 1
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 130,
+      "substitutedIn": 3,
+      "substitutedOut": 1,
+      "alternativeNames": [],
+      "age": 0,
+      "socialStatus": 0,
+      "nation": ""
+    },
+    "23": {
+      "name": "马尔科姆·阿杜",
+      "number": 23,
+      "matches": 28,
+      "starts": 21,
+      "positions": {
+        "CDM": 21
+      },
+      "goals": 2,
+      "assists": 1,
+      "minutesPlayed": 1890,
+      "substitutedIn": 7,
+      "substitutedOut": 7,
+      "alternativeNames": [
+        "M·贾雷吉扎尔"
+      ],
+      "age": 22,
+      "socialStatus": 1000,
+      "nation": "西班牙"
+    },
+    "24": {
+      "name": "本纳特.迪亚兹",
+      "number": 24,
+      "matches": 27,
+      "starts": 19,
+      "positions": {
+        "CDM": 19
+      },
+      "goals": 1,
+      "assists": 0,
+      "minutesPlayed": 1590,
+      "substitutedIn": 8,
+      "substitutedOut": 14,
+      "alternativeNames": [],
+      "age": 24,
+      "socialStatus": 2000,
+      "nation": "西班牙"
+    },
+    "26": {
+      "name": "A·帕迪拉",
+      "number": 26,
+      "matches": 5,
+      "starts": 3,
+      "positions": {
+        "GK": 3
+      },
+      "goals": 1,
+      "assists": 0,
+      "minutesPlayed": 310,
+      "substitutedIn": 2,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 0,
+      "socialStatus": 0,
+      "nation": ""
+    },
+    "27": {
+      "name": "U.埃吉卢兹",
+      "number": 27,
+      "matches": 0,
+      "starts": 0,
+      "positions": {},
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 0,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 0,
+      "socialStatus": 0,
+      "nation": ""
+    },
+    "28": {
+      "name": "P·卡纳莱斯",
+      "number": 28,
+      "matches": 7,
+      "starts": 1,
+      "positions": {
+        "CAM": 1
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 190,
+      "substitutedIn": 6,
+      "substitutedOut": 1,
+      "alternativeNames": [],
+      "age": 20,
+      "socialStatus": 0,
+      "nation": "西班牙"
+    },
+    "31": {
+      "name": "M·贾雷吉扎尔",
+      "number": 31,
+      "matches": 2,
+      "starts": 1,
+      "positions": {
+        "CDM": 1
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 110,
+      "substitutedIn": 1,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 0,
+      "socialStatus": 0,
+      "nation": ""
+    },
+    "32": {
+      "name": "A·博伊罗",
+      "number": 32,
+      "matches": 15,
+      "starts": 12,
+      "positions": {
+        "LB": 12
+      },
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 960,
+      "substitutedIn": 3,
+      "substitutedOut": 9,
+      "alternativeNames": [],
+      "age": 23,
+      "socialStatus": 150,
+      "nation": "西班牙"
+    },
+    "33": {
+      "name": "A·奥拉巴里埃塔",
+      "number": 33,
+      "matches": 0,
+      "starts": 0,
+      "positions": {},
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 0,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 0,
+      "socialStatus": 0,
+      "nation": ""
+    },
+    "34": {
+      "name": "",
+      "number": 34,
+      "matches": 0,
+      "starts": 0,
+      "positions": {},
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 0,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [
+        "加斯特西"
+      ],
+      "age": 0,
+      "socialStatus": 0,
+      "nation": ""
+    },
+    "43": {
+      "name": "布扬",
+      "number": 43,
+      "matches": 1,
+      "starts": 0,
+      "positions": {},
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 20,
+      "substitutedIn": 1,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 22,
+      "socialStatus": 0,
+      "nation": "西班牙"
+    },
+    "46": {
+      "name": "伊扎吉尔",
+      "number": 46,
+      "matches": 0,
+      "starts": 0,
+      "positions": {},
+      "goals": 0,
+      "assists": 0,
+      "minutesPlayed": 0,
+      "substitutedIn": 0,
+      "substitutedOut": 0,
+      "alternativeNames": [],
+      "age": 2025,
+      "socialStatus": 0,
+      "nation": ""
+    }
+  },
+  "formationStats": {
+    "433": 1,
+    "442": 2,
+    "4231": 30
+  }
+}
