@@ -818,7 +818,7 @@ if (require.main === module) {
     const analyzer = new ClubAnalyzer({
       leagueId: staticData.leagueSerial || 's36', // 默认英超
       serial: Number(staticData.teamSerial) || 24, // 默认切尔西
-      isNation: false, // 默认非国家队
+      isNation: staticData.isNation || false, // 默认非国家队
       roundSerial: Number(staticData.roundSerial) || null // 准备开打的轮次
     });
     
