@@ -829,67 +829,224 @@ class ClubAnalyzer {
       return [];
     }
     
+    // 获取阵型对应的位置列表
     const positions = this.getPositionsForFormation(formation);
-    const lineup = [];
-    const assignedPlayers = new Set(); // 用于跟踪已分配的球员
-
-    // 为每个球员确定其最佳位置（出场次数最多的位置）
-    const players = Object.values(this.playersData).map(player => {
-      let bestPosition = null;
-      let maxAppearances = 0;
-
-      // 遍历球员的所有位置记录，找出出场次数最多的位置
-      for (const [position, appearances] of Object.entries(player.positions)) {
-        if (appearances > maxAppearances) {
-          maxAppearances = appearances;
-          bestPosition = position;
-        }
+    
+    // 定义位置组，用于确保位置类型的合理性
+    const positionGroups = {
+      'GK': ['GK'],
+      'DF': ['CB', 'LB', 'RB', 'LCB', 'RCB', 'LWB', 'RWB'],
+      'MF': ['CDM', 'CM', 'LM', 'RM', 'CAM', 'LDM', 'RDM', 'LCM', 'RCM', 'LAM', 'RAM'],
+      'FW': ['CF', 'ST', 'LW', 'RW']
+    };
+    
+    // 反向映射，用于确定一个位置属于哪个组
+    const positionToGroup = {};
+    Object.entries(positionGroups).forEach(([group, posArray]) => {
+      posArray.forEach(pos => {
+        positionToGroup[pos] = group;
+      });
+    });
+    
+    // 为每个球员添加位置偏好信息和位置组信息
+    const playersWithPositionPreferences = Object.values(this.playersData).map(player => {
+      // 获取球员所有位置及出场次数
+      const positionsByFrequency = Object.entries(player.positions)
+        .filter(([pos]) => pos !== 'Unknown' && pos !== 'Substitute') // 过滤掉无效位置
+        .sort((a, b) => b[1] - a[1]); // 按出场次数从高到低排序
+      
+      // 确定球员的主要位置组
+      let mainPositionGroup = 'MF'; // 默认为中场
+      if (positionsByFrequency.length > 0) {
+        const mainPosition = positionsByFrequency[0][0];
+        mainPositionGroup = positionToGroup[mainPosition] || 'MF';
       }
-
+      
       return {
         ...player,
-        bestPosition,
-        bestPositionAppearances: maxAppearances
+        positionPreferences: positionsByFrequency.map(([pos]) => pos), // 球员位置偏好列表
+        positionsWithCounts: Object.fromEntries(positionsByFrequency), // 保留位置和对应的出场次数
+        mainPositionGroup // 球员的主要位置组
       };
     });
-
-    // 按首发次数排序
-    const sortedPlayers = players.sort((a, b) => b.lineups - a.lineups);
-
-    // 为每个位置挑选最合适的球员
-    for (const position of positions) {
-      // 首先查找最适合该位置的球员（最佳位置就是该位置的）
-      let bestMatch = sortedPlayers.find(p => 
-        !assignedPlayers.has(p.name) && 
-        p.bestPosition === position
+    
+    // 按首发次数从高到低排序球员
+    const sortedPlayers = playersWithPositionPreferences.sort((a, b) => b.lineups - a.lineups);
+    
+    // 选择首发次数较多的前11-16名球员
+    const candidateCount = Math.min(16, sortedPlayers.length);
+    const candidateCount11 = Math.min(11, sortedPlayers.length);
+    const candidatePlayers = sortedPlayers.slice(0, candidateCount);
+    
+    // 按位置组统计需要的球员数量
+    const requiredPositionGroupCount = {
+      'GK': positions.filter(p => positionToGroup[p] === 'GK').length,
+      'DF': positions.filter(p => positionToGroup[p] === 'DF').length,
+      'MF': positions.filter(p => positionToGroup[p] === 'MF').length,
+      'FW': positions.filter(p => positionToGroup[p] === 'FW').length
+    };
+    
+    // 为每个位置组选择最合适的球员
+    const selectedPlayersByGroup = {};
+    Object.keys(positionGroups).forEach(group => {
+      // 为每个组选择首发次数最多且属于该组的球员
+      selectedPlayersByGroup[group] = candidatePlayers
+        .filter(p => p.mainPositionGroup === group)
+        .slice(0, requiredPositionGroupCount[group]);
+      
+      // 如果该组球员不足，后续会从其他组补充
+    });
+    
+    // 合并所有已选球员
+    let selectedPlayers = [].concat(...Object.values(selectedPlayersByGroup));
+    
+    // 如果已选球员不足11人，从剩余候选人中补充
+    if (selectedPlayers.length < candidateCount11) {
+      const selectedPlayerNames = new Set(selectedPlayers.map(p => p.name));
+      const remainingPlayers = candidatePlayers.filter(p => !selectedPlayerNames.has(p.name));
+      
+      // 补充到11人
+      const additionalPlayers = remainingPlayers.slice(0, candidateCount11 - selectedPlayers.length);
+      selectedPlayers = [...selectedPlayers, ...additionalPlayers];
+    }
+    
+    // 创建阵型中各位置的候选人映射
+    const positionCandidates = {};
+    
+    // 初始化位置候选人映射
+    positions.forEach(position => {
+      positionCandidates[position] = [];
+    });
+    
+    // 计算每个球员对每个位置的适配度
+    selectedPlayers.forEach(player => {
+      // 获取该位置所属的组
+      const playerMainGroup = player.mainPositionGroup;
+      
+      positions.forEach(position => {
+        // 获取位置所属的组
+        const posGroup = positionToGroup[position] || 'MF';
+        
+        // 初始化适配度分数
+        let suitabilityScore = 0;
+        
+        // 如果球员主要位置组与当前位置组不同，大幅降低适配度（避免后卫放到前锋等情况）
+        // 门将特殊处理：只有主位置组是GK的球员才能担任门将
+        if (posGroup === 'GK' && playerMainGroup !== 'GK') {
+          suitabilityScore = -1000; // 非门将不能担任门将
+        } else if (playerMainGroup === 'GK' && posGroup !== 'GK') {
+          suitabilityScore = -1000; // 门将不能担任其他位置
+        } else if (playerMainGroup === 'DF' && posGroup === 'FW') {
+          suitabilityScore = -800; // 后卫不适合担任前锋
+        } else if (playerMainGroup === 'FW' && posGroup === 'DF') {
+          suitabilityScore = -800; // 前锋不适合担任后卫
+        } else if (playerMainGroup !== posGroup) {
+          suitabilityScore = -300; // 不同组的位置适配度较低
+        }
+        
+        // 如果球员在该位置有直接出场记录，加上出场次数作为适配度
+        if (player.positionsWithCounts[position]) {
+          suitabilityScore += player.positionsWithCounts[position] * 1000; // 直接匹配的位置具有最高优先级
+        } 
+        // 逐个检查球员偏好的位置是否与当前位置相似
+        else {
+          for (let i = 0; i < player.positionPreferences.length; i++) {
+            const prefPos = player.positionPreferences[i];
+            if (this.isCompatiblePosition(position, {[prefPos]: 1})) {
+              // 偏好度随着列表顺序降低
+              const preferenceWeight = (player.positionPreferences.length - i) / player.positionPreferences.length;
+              suitabilityScore += player.positionsWithCounts[prefPos] * preferenceWeight * 100;
+              break;
+            }
+          }
+        }
+        
+        // 添加首发次数因子，确保首发次数多的球员优先考虑
+        suitabilityScore += player.lineups * 5;
+        
+        // 将球员添加到该位置的候选名单中
+        positionCandidates[position].push({
+          player,
+          suitabilityScore
+        });
+      });
+    });
+    
+    // 为每个位置排序候选人
+    Object.keys(positionCandidates).forEach(position => {
+      positionCandidates[position].sort((a, b) => b.suitabilityScore - a.suitabilityScore);
+    });
+    
+    // 最终阵容和已分配球员追踪
+    const finalLineup = [];
+    const assignedPlayers = new Set();
+    
+    // 特殊处理门将位置，必须有一名守门员
+    const gkPosition = positions.find(p => p === 'GK');
+    if (gkPosition) {
+      const gkCandidate = positionCandidates[gkPosition]
+        .find(c => c.player.mainPositionGroup === 'GK' && !assignedPlayers.has(c.player.name));
+      
+      if (gkCandidate) {
+        assignedPlayers.add(gkCandidate.player.name);
+        finalLineup.push({
+          ...gkCandidate.player,
+          recommendedPosition: gkPosition
+        });
+      }
+    }
+    
+    // 按照位置组优先级处理其余位置：后卫 -> 中场 -> 前锋
+    const positionGroupOrder = ['DF', 'MF', 'FW'];
+    
+    positionGroupOrder.forEach(group => {
+      // 获取属于该组的所有位置
+      const groupPositions = positions.filter(p => positionToGroup[p] === group && p !== 'GK');
+      
+      // 为每个位置分配最适合的球员
+      for (const position of groupPositions) {
+        // 跳过已经处理过的门将位置
+        if (position === 'GK') continue;
+        
+        // 在候选名单中找到尚未分配的最适合该位置的球员
+        const bestCandidate = positionCandidates[position]
+          .find(candidate => !assignedPlayers.has(candidate.player.name));
+        
+        if (bestCandidate) {
+          assignedPlayers.add(bestCandidate.player.name);
+          finalLineup.push({
+            ...bestCandidate.player,
+            recommendedPosition: position
+          });
+        }
+      }
+    });
+    
+    // 如果阵容不足11人，从剩余候选人中补充
+    if (finalLineup.length < candidateCount11) {
+      // 剩余未分配的候选球员
+      const remainingCandidates = selectedPlayers
+        .filter(p => !assignedPlayers.has(p.name))
+        .sort((a, b) => b.lineups - a.lineups);
+      
+      // 剩余需要填充的位置
+      const remainingPositions = positions.filter(p => 
+        !finalLineup.some(player => player.recommendedPosition === p)
       );
-
-      // 如果没有找到完全匹配的，则尝试找出场过该位置的球员
-      if (!bestMatch) {
-        bestMatch = sortedPlayers.find(p => 
-          !assignedPlayers.has(p.name) && 
-          (p.positions[position] || 0) > 0
-        );
-      }
-
-      // 如果仍未找到，则寻找适合相似位置的球员
-      if (!bestMatch) {
-        bestMatch = sortedPlayers.find(p => 
-          !assignedPlayers.has(p.name) && 
-          this.isCompatiblePosition(position, p.positions)
-        );
-      }
-
-      if (bestMatch) {
-        assignedPlayers.add(bestMatch.name);
-        lineup.push({
-          ...bestMatch,
+      
+      // 为剩余位置分配球员
+      for (let i = 0; i < remainingPositions.length && i < remainingCandidates.length; i++) {
+        const position = remainingPositions[i];
+        const player = remainingCandidates[i];
+        
+        finalLineup.push({
+          ...player,
           recommendedPosition: position
         });
       }
     }
     
-    return lineup;
+    return finalLineup;
   }
   
   /**

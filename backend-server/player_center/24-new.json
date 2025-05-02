@@ -2,7 +2,7 @@
   "teamId": 24,
   "teamChineseName": "切尔西",
   "isNation": false,
-  "analysisDate": "2025-05-02T08:43:38.871Z",
+  "analysisDate": "2025-05-02T09:57:42.318Z",
   "mostUsedFormation": "4231",
   "recommendedLineup": [
     {
@@ -501,8 +501,13 @@
       "socialStatus": 2000,
       "nation": "西班牙",
       "height": 197,
-      "bestPosition": "GK",
-      "bestPositionAppearances": 28,
+      "positionPreferences": [
+        "GK"
+      ],
+      "positionsWithCounts": {
+        "GK": 28
+      },
+      "mainPositionGroup": "GK",
       "recommendedPosition": "GK"
     },
     {
@@ -973,8 +978,13 @@
       "socialStatus": 3000,
       "nation": "西班牙",
       "height": 173,
-      "bestPosition": "LB",
-      "bestPositionAppearances": 29,
+      "positionPreferences": [
+        "LB"
+      ],
+      "positionsWithCounts": {
+        "LB": 29
+      },
+      "mainPositionGroup": "DF",
       "recommendedPosition": "LB"
     },
     {
@@ -1461,8 +1471,13 @@
       "socialStatus": 5500,
       "nation": "英格兰",
       "height": 187,
-      "bestPosition": "CB",
-      "bestPositionAppearances": 31,
+      "positionPreferences": [
+        "CB"
+      ],
+      "positionsWithCounts": {
+        "CB": 31
+      },
+      "mainPositionGroup": "DF",
       "recommendedPosition": "CB"
     },
     {
@@ -1696,8 +1711,15 @@
       "socialStatus": 3000,
       "nation": "法国",
       "height": 185,
-      "bestPosition": "CB",
-      "bestPositionAppearances": 10,
+      "positionPreferences": [
+        "CB",
+        "RB"
+      ],
+      "positionsWithCounts": {
+        "CB": 10,
+        "RB": 4
+      },
+      "mainPositionGroup": "DF",
       "recommendedPosition": "CB"
     },
     {
@@ -2127,8 +2149,15 @@
       "socialStatus": 3500,
       "nation": "法国",
       "height": 178,
-      "bestPosition": "RB",
-      "bestPositionAppearances": 17,
+      "positionPreferences": [
+        "RB",
+        "LB"
+      ],
+      "positionsWithCounts": {
+        "RB": 17,
+        "LB": 2
+      },
+      "mainPositionGroup": "DF",
       "recommendedPosition": "RB"
     },
     {
@@ -2628,8 +2657,15 @@
       "socialStatus": 8000,
       "nation": "厄瓜多尔",
       "height": 178,
-      "bestPosition": "CDM",
-      "bestPositionAppearances": 30,
+      "positionPreferences": [
+        "CDM",
+        "RB"
+      ],
+      "positionsWithCounts": {
+        "CDM": 30,
+        "RB": 4
+      },
+      "mainPositionGroup": "MF",
       "recommendedPosition": "CDM"
     },
     {
@@ -3103,38 +3139,31 @@
       "socialStatus": 7500,
       "nation": "阿根廷",
       "height": 178,
-      "bestPosition": "CDM",
-      "bestPositionAppearances": 25,
+      "positionPreferences": [
+        "CDM",
+        "CAM"
+      ],
+      "positionsWithCounts": {
+        "CDM": 25,
+        "CAM": 3
+      },
+      "mainPositionGroup": "MF",
       "recommendedPosition": "CDM"
     },
     {
-      "name": "N·马杜埃凯",
-      "number": 11,
-      "caps": 28,
-      "lineups": 23,
+      "name": "内托",
+      "number": 7,
+      "caps": 30,
+      "lineups": 20,
       "matches": [
-        {
-          "id": 2590906,
-          "round": 1,
-          "position": "Substitute",
-          "caps": 0,
-          "lineups": 0,
-          "goals": 0,
-          "assists": 0,
-          "handicap": -0.5,
-          "score": "0-2",
-          "handicapResult": "lose",
-          "totalLine": "3/3.5",
-          "totalGoalsResult": "under"
-        },
         {
           "id": 2590917,
           "round": 2,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
-          "goals": 3,
-          "assists": 0,
+          "lineups": 0,
+          "goals": 0,
+          "assists": 1,
           "handicap": -0.75,
           "score": "2-6",
           "handicapResult": "win",
@@ -3144,7 +3173,7 @@
         {
           "id": 2590920,
           "round": 3,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -3158,7 +3187,7 @@
         {
           "id": 2590928,
           "round": 4,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -3172,9 +3201,9 @@
         {
           "id": 2590947,
           "round": 5,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": 0,
@@ -3186,9 +3215,9 @@
         {
           "id": 2590951,
           "round": 6,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": 0.75,
@@ -3200,10 +3229,10 @@
         {
           "id": 2590962,
           "round": 7,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
-          "goals": 1,
+          "lineups": 0,
+          "goals": 0,
           "assists": 0,
           "handicap": 1.25,
           "score": "1-1",
@@ -3214,9 +3243,9 @@
         {
           "id": 2590971,
           "round": 8,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": 0.5,
@@ -3228,11 +3257,11 @@
         {
           "id": 2590982,
           "round": 9,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
-          "assists": 0,
+          "assists": 1,
           "handicap": 0.5,
           "score": "2-1",
           "handicapResult": "win",
@@ -3242,7 +3271,7 @@
         {
           "id": 2590992,
           "round": 10,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -3256,10 +3285,10 @@
         {
           "id": 2591000,
           "round": 11,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 0,
+          "goals": 1,
           "assists": 0,
           "handicap": -0.25,
           "score": "1-1",
@@ -3268,27 +3297,13 @@
           "totalGoalsResult": "under"
         },
         {
-          "id": 2591014,
-          "round": 12,
+          "id": 2591020,
+          "round": 13,
           "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
           "assists": 0,
-          "handicap": -0.75,
-          "score": "1-2",
-          "handicapResult": "win",
-          "totalLine": "3",
-          "totalGoalsResult": "draw"
-        },
-        {
-          "id": 2591020,
-          "round": 13,
-          "position": "Substitute",
-          "caps": 1,
-          "lineups": 0,
-          "goals": 0,
-          "assists": 1,
           "handicap": 0.5,
           "score": "3-0",
           "handicapResult": "win",
@@ -3298,11 +3313,11 @@
         {
           "id": 2591037,
           "round": 14,
-          "position": "RAM",
-          "caps": 1,
-          "lineups": 1,
-          "goals": 1,
-          "assists": 1,
+          "position": "Substitute",
+          "caps": 0,
+          "lineups": 0,
+          "goals": 0,
+          "assists": 0,
           "handicap": -1,
           "score": "1-5",
           "handicapResult": "win",
@@ -3312,9 +3327,9 @@
         {
           "id": 2591046,
           "round": 15,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": 0,
@@ -3324,25 +3339,11 @@
           "totalGoalsResult": "over"
         },
         {
-          "id": 2591051,
-          "round": 16,
+          "id": 2591061,
+          "round": 17,
           "position": "RAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 0,
-          "assists": 1,
-          "handicap": 1.25,
-          "score": "2-1",
-          "handicapResult": "lose",
-          "totalLine": "3/3.5",
-          "totalGoalsResult": "under"
-        },
-        {
-          "id": 2591061,
-          "round": 17,
-          "position": "Substitute",
-          "caps": 1,
-          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": -1,
@@ -3352,11 +3353,25 @@
           "totalGoalsResult": "under"
         },
         {
-          "id": 2591083,
-          "round": 19,
+          "id": 2591071,
+          "round": 18,
           "position": "RAM",
           "caps": 1,
           "lineups": 1,
+          "goals": 0,
+          "assists": 0,
+          "handicap": 1,
+          "score": "1-2",
+          "handicapResult": "lose",
+          "totalLine": "3/3.5",
+          "totalGoalsResult": "under"
+        },
+        {
+          "id": 2591083,
+          "round": 19,
+          "position": "Substitute",
+          "caps": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": -1.25,
@@ -3368,9 +3383,9 @@
         {
           "id": 2591091,
           "round": 20,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": -0.75,
@@ -3382,9 +3397,9 @@
         {
           "id": 2591105,
           "round": 21,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": 1,
@@ -3396,10 +3411,10 @@
         {
           "id": 2591110,
           "round": 22,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 1,
+          "goals": 0,
           "assists": 0,
           "handicap": 1.5,
           "score": "3-1",
@@ -3410,10 +3425,10 @@
         {
           "id": 2591124,
           "round": 23,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
-          "goals": 1,
+          "lineups": 0,
+          "goals": 0,
           "assists": 0,
           "handicap": 0.5,
           "score": "3-1",
@@ -3424,10 +3439,10 @@
         {
           "id": 2591131,
           "round": 24,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
-          "goals": 0,
+          "lineups": 0,
+          "goals": 1,
           "assists": 0,
           "handicap": 1.25,
           "score": "2-1",
@@ -3438,7 +3453,7 @@
         {
           "id": 2591139,
           "round": 25,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -3450,11 +3465,67 @@
           "totalGoalsResult": "draw"
         },
         {
+          "id": 2591150,
+          "round": 26,
+          "position": "ST",
+          "caps": 1,
+          "lineups": 1,
+          "goals": 0,
+          "assists": 1,
+          "handicap": -0.25,
+          "score": "2-1",
+          "handicapResult": "lose",
+          "totalLine": "3",
+          "totalGoalsResult": "draw"
+        },
+        {
+          "id": 2591165,
+          "round": 27,
+          "position": "ST",
+          "caps": 1,
+          "lineups": 1,
+          "goals": 1,
+          "assists": 1,
+          "handicap": 2,
+          "score": "4-0",
+          "handicapResult": "win",
+          "totalLine": "3.5",
+          "totalGoalsResult": "over"
+        },
+        {
+          "id": 2591170,
+          "round": 28,
+          "position": "ST",
+          "caps": 1,
+          "lineups": 1,
+          "goals": 0,
+          "assists": 0,
+          "handicap": 2,
+          "score": "1-0",
+          "handicapResult": "lose",
+          "totalLine": "3.5",
+          "totalGoalsResult": "under"
+        },
+        {
+          "id": 2591179,
+          "round": 29,
+          "position": "ST",
+          "caps": 1,
+          "lineups": 1,
+          "goals": 0,
+          "assists": 0,
+          "handicap": 0.75,
+          "score": "1-0",
+          "handicapResult": "lose",
+          "totalLine": "2.5/3",
+          "totalGoalsResult": "under"
+        },
+        {
           "id": 2591193,
           "round": 30,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": 1,
@@ -3466,9 +3537,9 @@
         {
           "id": 2591199,
           "round": 31,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": -0.25,
@@ -3480,7 +3551,7 @@
         {
           "id": 2591211,
           "round": 32,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -3494,10 +3565,10 @@
         {
           "id": 2591222,
           "round": 33,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 0,
+          "goals": 1,
           "assists": 0,
           "handicap": -0.25,
           "score": "1-2",
@@ -3508,7 +3579,7 @@
         {
           "id": 2591231,
           "round": 34,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -3521,21 +3592,31 @@
         }
       ],
       "positions": {
-        "RAM": 22,
-        "LAM": 1
+        "LAM": 9,
+        "RAM": 7,
+        "ST": 4
       },
-      "goals": 7,
-      "assists": 3,
-      "minutesPlayed": 1790,
-      "substitutedIn": 5,
-      "substitutedOut": 19,
+      "goals": 4,
+      "assists": 4,
+      "minutesPlayed": 1860,
+      "substitutedIn": 10,
+      "substitutedOut": 7,
       "alternativeNames": [],
-      "age": 23,
-      "socialStatus": 4000,
-      "nation": "英格兰",
-      "height": 182,
-      "bestPosition": "RAM",
-      "bestPositionAppearances": 22,
+      "age": 25,
+      "socialStatus": 5500,
+      "nation": "葡萄牙",
+      "height": 174,
+      "positionPreferences": [
+        "LAM",
+        "RAM",
+        "ST"
+      ],
+      "positionsWithCounts": {
+        "LAM": 9,
+        "RAM": 7,
+        "ST": 4
+      },
+      "mainPositionGroup": "MF",
       "recommendedPosition": "LM"
     },
     {
@@ -4021,24 +4102,45 @@
       "socialStatus": 13000,
       "nation": "英格兰",
       "height": 185,
-      "bestPosition": "CAM",
-      "bestPositionAppearances": 30,
+      "positionPreferences": [
+        "CAM",
+        "RAM"
+      ],
+      "positionsWithCounts": {
+        "CAM": 30,
+        "RAM": 2
+      },
+      "mainPositionGroup": "MF",
       "recommendedPosition": "CAM"
     },
     {
-      "name": "内托",
-      "number": 7,
-      "caps": 30,
-      "lineups": 20,
+      "name": "N·马杜埃凯",
+      "number": 11,
+      "caps": 28,
+      "lineups": 23,
       "matches": [
+        {
+          "id": 2590906,
+          "round": 1,
+          "position": "Substitute",
+          "caps": 0,
+          "lineups": 0,
+          "goals": 0,
+          "assists": 0,
+          "handicap": -0.5,
+          "score": "0-2",
+          "handicapResult": "lose",
+          "totalLine": "3/3.5",
+          "totalGoalsResult": "under"
+        },
         {
           "id": 2590917,
           "round": 2,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
-          "goals": 0,
-          "assists": 1,
+          "lineups": 1,
+          "goals": 3,
+          "assists": 0,
           "handicap": -0.75,
           "score": "2-6",
           "handicapResult": "win",
@@ -4048,7 +4150,7 @@
         {
           "id": 2590920,
           "round": 3,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -4062,7 +4164,7 @@
         {
           "id": 2590928,
           "round": 4,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -4076,9 +4178,9 @@
         {
           "id": 2590947,
           "round": 5,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": 0,
@@ -4090,9 +4192,9 @@
         {
           "id": 2590951,
           "round": 6,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": 0.75,
@@ -4104,10 +4206,10 @@
         {
           "id": 2590962,
           "round": 7,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
-          "goals": 0,
+          "lineups": 1,
+          "goals": 1,
           "assists": 0,
           "handicap": 1.25,
           "score": "1-1",
@@ -4118,9 +4220,9 @@
         {
           "id": 2590971,
           "round": 8,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": 0.5,
@@ -4132,11 +4234,11 @@
         {
           "id": 2590982,
           "round": 9,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
-          "assists": 1,
+          "assists": 0,
           "handicap": 0.5,
           "score": "2-1",
           "handicapResult": "win",
@@ -4146,7 +4248,7 @@
         {
           "id": 2590992,
           "round": 10,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -4160,10 +4262,10 @@
         {
           "id": 2591000,
           "round": 11,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 1,
+          "goals": 0,
           "assists": 0,
           "handicap": -0.25,
           "score": "1-1",
@@ -4172,13 +4274,27 @@
           "totalGoalsResult": "under"
         },
         {
-          "id": 2591020,
-          "round": 13,
+          "id": 2591014,
+          "round": 12,
           "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
           "assists": 0,
+          "handicap": -0.75,
+          "score": "1-2",
+          "handicapResult": "win",
+          "totalLine": "3",
+          "totalGoalsResult": "draw"
+        },
+        {
+          "id": 2591020,
+          "round": 13,
+          "position": "Substitute",
+          "caps": 1,
+          "lineups": 0,
+          "goals": 0,
+          "assists": 1,
           "handicap": 0.5,
           "score": "3-0",
           "handicapResult": "win",
@@ -4188,11 +4304,11 @@
         {
           "id": 2591037,
           "round": 14,
-          "position": "Substitute",
-          "caps": 0,
-          "lineups": 0,
-          "goals": 0,
-          "assists": 0,
+          "position": "RAM",
+          "caps": 1,
+          "lineups": 1,
+          "goals": 1,
+          "assists": 1,
           "handicap": -1,
           "score": "1-5",
           "handicapResult": "win",
@@ -4202,9 +4318,9 @@
         {
           "id": 2591046,
           "round": 15,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": 0,
@@ -4214,11 +4330,25 @@
           "totalGoalsResult": "over"
         },
         {
-          "id": 2591061,
-          "round": 17,
+          "id": 2591051,
+          "round": 16,
           "position": "RAM",
           "caps": 1,
           "lineups": 1,
+          "goals": 0,
+          "assists": 1,
+          "handicap": 1.25,
+          "score": "2-1",
+          "handicapResult": "lose",
+          "totalLine": "3/3.5",
+          "totalGoalsResult": "under"
+        },
+        {
+          "id": 2591061,
+          "round": 17,
+          "position": "Substitute",
+          "caps": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": -1,
@@ -4228,25 +4358,11 @@
           "totalGoalsResult": "under"
         },
         {
-          "id": 2591071,
-          "round": 18,
+          "id": 2591083,
+          "round": 19,
           "position": "RAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 0,
-          "assists": 0,
-          "handicap": 1,
-          "score": "1-2",
-          "handicapResult": "lose",
-          "totalLine": "3/3.5",
-          "totalGoalsResult": "under"
-        },
-        {
-          "id": 2591083,
-          "round": 19,
-          "position": "Substitute",
-          "caps": 1,
-          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": -1.25,
@@ -4258,9 +4374,9 @@
         {
           "id": 2591091,
           "round": 20,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": -0.75,
@@ -4272,9 +4388,9 @@
         {
           "id": 2591105,
           "round": 21,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": 1,
@@ -4286,10 +4402,10 @@
         {
           "id": 2591110,
           "round": 22,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 0,
+          "goals": 1,
           "assists": 0,
           "handicap": 1.5,
           "score": "3-1",
@@ -4300,10 +4416,10 @@
         {
           "id": 2591124,
           "round": 23,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
-          "goals": 0,
+          "lineups": 1,
+          "goals": 1,
           "assists": 0,
           "handicap": 0.5,
           "score": "3-1",
@@ -4314,10 +4430,10 @@
         {
           "id": 2591131,
           "round": 24,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
-          "goals": 1,
+          "lineups": 1,
+          "goals": 0,
           "assists": 0,
           "handicap": 1.25,
           "score": "2-1",
@@ -4328,7 +4444,7 @@
         {
           "id": 2591139,
           "round": 25,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -4340,67 +4456,11 @@
           "totalGoalsResult": "draw"
         },
         {
-          "id": 2591150,
-          "round": 26,
-          "position": "ST",
-          "caps": 1,
-          "lineups": 1,
-          "goals": 0,
-          "assists": 1,
-          "handicap": -0.25,
-          "score": "2-1",
-          "handicapResult": "lose",
-          "totalLine": "3",
-          "totalGoalsResult": "draw"
-        },
-        {
-          "id": 2591165,
-          "round": 27,
-          "position": "ST",
-          "caps": 1,
-          "lineups": 1,
-          "goals": 1,
-          "assists": 1,
-          "handicap": 2,
-          "score": "4-0",
-          "handicapResult": "win",
-          "totalLine": "3.5",
-          "totalGoalsResult": "over"
-        },
-        {
-          "id": 2591170,
-          "round": 28,
-          "position": "ST",
-          "caps": 1,
-          "lineups": 1,
-          "goals": 0,
-          "assists": 0,
-          "handicap": 2,
-          "score": "1-0",
-          "handicapResult": "lose",
-          "totalLine": "3.5",
-          "totalGoalsResult": "under"
-        },
-        {
-          "id": 2591179,
-          "round": 29,
-          "position": "ST",
-          "caps": 1,
-          "lineups": 1,
-          "goals": 0,
-          "assists": 0,
-          "handicap": 0.75,
-          "score": "1-0",
-          "handicapResult": "lose",
-          "totalLine": "2.5/3",
-          "totalGoalsResult": "under"
-        },
-        {
           "id": 2591193,
           "round": 30,
-          "position": "RAM",
+          "position": "Substitute",
           "caps": 1,
-          "lineups": 1,
+          "lineups": 0,
           "goals": 0,
           "assists": 0,
           "handicap": 1,
@@ -4412,9 +4472,9 @@
         {
           "id": 2591199,
           "round": 31,
-          "position": "Substitute",
+          "position": "RAM",
           "caps": 1,
-          "lineups": 0,
+          "lineups": 1,
           "goals": 0,
           "assists": 0,
           "handicap": -0.25,
@@ -4426,7 +4486,7 @@
         {
           "id": 2591211,
           "round": 32,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -4440,10 +4500,10 @@
         {
           "id": 2591222,
           "round": 33,
-          "position": "LAM",
+          "position": "RAM",
           "caps": 1,
           "lineups": 1,
-          "goals": 1,
+          "goals": 0,
           "assists": 0,
           "handicap": -0.25,
           "score": "1-2",
@@ -4454,7 +4514,7 @@
         {
           "id": 2591231,
           "round": 34,
-          "position": "RAM",
+          "position": "LAM",
           "caps": 1,
           "lineups": 1,
           "goals": 0,
@@ -4467,22 +4527,28 @@
         }
       ],
       "positions": {
-        "LAM": 9,
-        "RAM": 7,
-        "ST": 4
+        "RAM": 22,
+        "LAM": 1
       },
-      "goals": 4,
-      "assists": 4,
-      "minutesPlayed": 1860,
-      "substitutedIn": 10,
-      "substitutedOut": 7,
+      "goals": 7,
+      "assists": 3,
+      "minutesPlayed": 1790,
+      "substitutedIn": 5,
+      "substitutedOut": 19,
       "alternativeNames": [],
-      "age": 25,
-      "socialStatus": 5500,
-      "nation": "葡萄牙",
-      "height": 174,
-      "bestPosition": "LAM",
-      "bestPositionAppearances": 9,
+      "age": 23,
+      "socialStatus": 4000,
+      "nation": "英格兰",
+      "height": 182,
+      "positionPreferences": [
+        "RAM",
+        "LAM"
+      ],
+      "positionsWithCounts": {
+        "RAM": 22,
+        "LAM": 1
+      },
+      "mainPositionGroup": "MF",
       "recommendedPosition": "RM"
     },
     {
@@ -4913,8 +4979,13 @@
       "socialStatus": 5500,
       "nation": "塞内加尔",
       "height": 187,
-      "bestPosition": "ST",
-      "bestPositionAppearances": 26,
+      "positionPreferences": [
+        "ST"
+      ],
+      "positionsWithCounts": {
+        "ST": 26
+      },
+      "mainPositionGroup": "FW",
       "recommendedPosition": "ST"
     }
   ],
