@@ -1,6 +1,6 @@
 const staticData = {
-  leagueSerial: 's36',
-  teamSerial: '27',
+  leagueSerial: '36',
+  teamSerial: '24',
   roundSerial: '35',
   isNation: false
 }
