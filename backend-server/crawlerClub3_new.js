@@ -29,7 +29,7 @@ class ClubAnalyzer {
     this.playersData = {}; // 球员数据
     this.formationStats = {}; // 阵型统计
     this.matchDataCache = new Map(); // 缓存已爬取的比赛数据
-    this.teamChineseName = ''; // 球队中文名称
+    this.teamChineseName = options.teamChineseName || ''; // 球队中文名称
     // 亚盘数据统计
     this.asianHandicapStats = {
       total: 0,
@@ -703,6 +703,15 @@ class ClubAnalyzer {
         teamPlayer = this.teamData.find(p => p.number === player.number);
         
         if (!teamPlayer) {
+          console.warn(`找不到匹配的球员: ${player.name} (#${player.number}), 接下来找名字包含的`);
+          teamPlayer = this.teamData.find(p => p.name.includes(player.name));
+          // 找到后，更新球员球衣号码
+          if (teamPlayer) {
+            teamPlayer.number = player.number;
+          }
+        }
+
+        if (!teamPlayer) {
           console.warn(`找不到匹配的球员: ${player.name} (#${player.number})`);
           continue;
         }
@@ -1043,21 +1052,6 @@ class ClubAnalyzer {
       const leagueData = await this.readLeagueData();
       console.log(`成功读取${this.isNation ? '国际赛事' : '联赛'}数据`);
       
-      // 1.1 获取球队中文名称
-      if (leagueData.teams) {
-        this.getTeamChineseName(leagueData.teams);
-      }
-      
-      // 1.2 如果仍未获取到球队中文名称，尝试使用额外方法
-      if (!this.teamChineseName) {
-        await this.tryLoadTeamChineseName();
-      }
-      
-      // 1.3 如果仍未获取到中文名称，尝试为一些常见的球队手动设置
-      if (!this.teamChineseName) {
-        this.setDefaultTeamChineseName();
-      }
-      
       // 2. 读取球队数据
       this.teamData = await this.readTeamData();
       
@@ -1173,7 +1167,7 @@ class ClubAnalyzer {
         } else {
           // 如果当前球员列表中没有该球员，尝试通过名称匹配
           const matchByName = Object.values(this.playersData).find(p => 
-            p.name === playerInfo.name || 
+            (p.name && playerInfo.name.includes(p.name)) || 
             (p.alternativeNames && p.alternativeNames.includes(playerInfo.name))
           );
           
@@ -1263,176 +1257,6 @@ class ClubAnalyzer {
     });
     
     return totalGoalsResult;
-  }
-
-  /**
-   * 从联赛数据中获取球队中文名称
-   * @param {Array} teams 球队数据数组
-   */
-  getTeamChineseName(teams) {
-    if (!Array.isArray(teams) || !this.serial) {
-      return '';
-    }
-    
-    // 在球队数组中查找匹配的球队序号，确保进行类型转换比较
-    const team = teams.find(team => String(team[0]) === String(this.serial));
-    if (team && team[1]) {
-      this.teamChineseName = team[1];
-      console.log(`球队中文名称: ${this.teamChineseName}`);
-      return team[1];
-    }
-    
-    // 如果没找到匹配项，尝试输出一些调试信息
-    console.warn(`找不到序号为 ${this.serial} 的球队中文名称`);
-    console.log(`可用的球队序号: ${teams.map(t => t[0]).join(', ')}`);
-    return '';
-  }
-
-  /**
-   * 尝试加载球队中文名称，通过尝试多个可能的文件
-   * 由于文件命名可能存在差异，我们尝试几种常见的格式
-   */
-  async tryLoadTeamChineseName() {
-    // 如果已经有球队中文名称，则直接返回
-    if (this.teamChineseName) {
-      return this.teamChineseName;
-    }
-    
-    // 没有球队序号则无法加载
-    if (!this.serial) {
-      return '';
-    }
-    
-    console.log('尝试加载球队中文名称...');
-    
-    // 尝试的文件路径格式
-    const formats = this.isNation ? 
-      ['c${id}', 'c${id}', 'cnation${id}'] : 
-      ['s${id}', 's${id}.js', 'sleague${id}', 'sleague${id}.js', '${id}', '${id}.js'];
-    
-    // 尝试的ID格式
-    const idFormats = [
-      this.leagueId,
-      this.leagueId.replace(/^[sc]/, ''),
-      this.leagueId.replace(/^sleague/, '').replace(/^s/, '')
-    ];
-    
-    // 尝试所有可能的组合
-    for (const format of formats) {
-      for (const id of idFormats) {
-        try {
-          // 构建可能的文件路径
-          const fileName = format.replace('${id}', id);
-          const filePath = path.resolve(__dirname, `match_center/${fileName}`);
-          
-          console.log(`尝试读取文件: ${filePath}`);
-          
-          if (!fs.existsSync(filePath)) {
-            // 如果文件不存在，尝试添加.js后缀
-            if (!filePath.endsWith('.js') && fs.existsSync(`${filePath}.js`)) {
-              const fileWithExt = `${filePath}.js`;
-              console.log(`找到文件: ${fileWithExt}`);
-              
-              const fileContent = fs.readFileSync(fileWithExt, 'utf8');
-              const context = { jh: {}, arrTeam: [] };
-              const executeScript = new Function('jh', 'arrTeam', fileContent);
-              executeScript(context.jh, context.arrTeam);
-              
-              // 在球队数组中查找匹配的球队序号
-              const team = context.arrTeam.find(team => String(team[0]) === String(this.serial));
-              if (team && team[1]) {
-                this.teamChineseName = team[1];
-                console.log(`从文件 ${fileWithExt} 找到球队中文名称: ${this.teamChineseName}`);
-                return this.teamChineseName;
-              }
-            }
-            continue;
-          }
-          
-          const fileContent = fs.readFileSync(filePath, 'utf8');
-          const context = { jh: {}, arrTeam: [] };
-          const executeScript = new Function('jh', 'arrTeam', fileContent);
-          executeScript(context.jh, context.arrTeam);
-          
-          // 在球队数组中查找匹配的球队序号
-          const team = context.arrTeam.find(team => String(team[0]) === String(this.serial));
-          if (team && team[1]) {
-            this.teamChineseName = team[1];
-            console.log(`从文件 ${filePath} 找到球队中文名称: ${this.teamChineseName}`);
-            return this.teamChineseName;
-          }
-        } catch (error) {
-          // 忽略错误，尝试下一个文件
-          console.log(`读取文件失败: ${error.message}`);
-        }
-      }
-    }
-    
-    console.warn(`尝试所有可能的文件后仍找不到球队中文名称`);
-    return '';
-  }
-
-  /**
-   * 为常见的球队手动设置中文名称
-   * 当无法从文件中获取时使用
-   */
-  setDefaultTeamChineseName() {
-    // 常见英超球队的中文名称映射
-    const premierLeagueTeams = {
-      '1': '阿森纳',
-      '2': '阿斯顿维拉',
-      '3': '伯恩茅斯',
-      '4': '布伦特福德',
-      '5': '布莱顿',
-      '6': '伯恩利',
-      '7': '切尔西',
-      '8': '水晶宫',
-      '9': '埃弗顿',
-      '10': '富勒姆',
-      '11': '利物浦',
-      '12': '卢顿',
-      '13': '曼城',
-      '14': '曼联',
-      '15': '纽卡斯尔联',
-      '16': '诺丁汉森林',
-      '17': '谢菲尔德联',
-      '18': '南安普顿',
-      '19': '热刺',
-      '20': '西汉姆联',
-      '21': '狼队',
-      '22': '伯明翰',
-      '23': '布莱克本',
-      '24': '切尔西',
-      '25': '雷丁',
-      '26': '普雷斯顿',
-      '27': '女王公园巡游者',
-      '28': '谢菲尔德联',
-      '29': '斯托克城',
-      '30': '桑德兰',
-      '31': '斯旺西',
-      '32': '沃特福德',
-      '33': '西布朗',
-      '34': '维冈竞技',
-      '35': '伯恩茅斯',
-      '36': '布莱顿',
-      '37': '布伦特福德',
-      '38': '卡迪夫城',
-      '39': '考文垂',
-      '40': '德比郡'
-    };
-
-    // 如果是英超球队
-    if (this.leagueId === '36' || this.leagueId === 's36') {
-      if (premierLeagueTeams[this.serial]) {
-        this.teamChineseName = premierLeagueTeams[this.serial];
-        console.log(`使用默认中文名称: ${this.teamChineseName}`);
-        return;
-      }
-    }
-
-    // 如果未能匹配到，使用"球队"加序号作为名称
-    this.teamChineseName = `球队${this.serial}`;
-    console.log(`未找到匹配，使用默认名称: ${this.teamChineseName}`);
   }
 
   /**
@@ -1533,7 +1357,8 @@ if (require.main === module) {
       leagueId: staticData.leagueSerial || '36', // 默认英超
       serial: Number(staticData.teamSerial) || 24, // 默认切尔西
       isNation: staticData.isNation || false, // 默认非国家队
-      roundSerial: Number(staticData.roundSerial) || null // 准备开打的轮次
+      roundSerial: Number(staticData.roundSerial) || null, // 准备开打的轮次
+      teamChineseName: staticData.teamChineseName || '' // 球队中文名称
     }
     // 开始分析
     console.log(`开始分析${staticData.isNation ? '国家队' : '俱乐部'}比赛数据...`);

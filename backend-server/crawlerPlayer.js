@@ -2,13 +2,13 @@ const cheerio = require('cheerio')
 const fs = require('fs')
 const path = require('path')
 
-const { dateFormat, Queue, service, deepClone } = require('../utils/utils')
-const { League } = require('../class')
-const staticData = require('../config/wudaconfig')
+const { dateFormat, Queue, service, deepClone } = require('./utils/utils')
+const { League } = require('./class')
+const staticData = require('./config/wudaconfig')
 
 const {
   qiutanHeaders
-} = require('../config/league')
+} = require('./config/league')
 const serial = staticData.teamSerial
 service({
   methods: 'GET',
@@ -18,7 +18,7 @@ service({
   eval(res.data)
   // rearguard 后卫 vanguard 前锋 goalkeeper 门将 midfielder 中场
   const players = parsePlayer(rearguard, vanguard, goalkeeper, midfielder, lineupDetail)
-  fs.writeFileSync(path.resolve(__dirname, `../player_center/${serial}.json`), JSON.stringify(players), 'utf8')
+  fs.writeFileSync(path.resolve(__dirname, `./player_center/${serial}.json`), JSON.stringify(players), 'utf8')
 })
 
 function parsePlayer (rearguard, vanguard, goalkeeper, midfielder, lineupDetail) {
