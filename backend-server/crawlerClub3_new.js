@@ -1459,61 +1459,6 @@ class ClubAnalyzer {
         console.log(`最常用阵型: ${report.mostUsedFormation}`);
         console.log(`分析球员数量: ${Object.keys(report.players).length}`);
         
-        // 输出亚盘数据统计结果
-        if (report.asianHandicap && report.asianHandicap.total > 0) {
-          console.log('\n亚盘数据统计:');
-          console.log(`总场次: ${report.asianHandicap.total}`);
-          console.log(`赢盘: ${report.asianHandicap.win} (${report.asianHandicap.winRate}%)`);
-          console.log(`输盘: ${report.asianHandicap.lose}`);
-          console.log(`走盘: ${report.asianHandicap.draw}`);
-          
-          // 输出每场比赛的亚盘详情
-          console.log('\n亚盘详细记录:');
-          report.asianHandicap.matches.forEach((match, index) => {
-            const statusText = match.status === 'home' ? '主场' : '客场';
-            const handicapText = match.handicap > 0 
-              ? `主队让${match.handicap}球` 
-              : match.handicap < 0 
-                ? `主队受${Math.abs(match.handicap)}球` 
-                : '平手盘';
-            const resultText = match.teamResult === 'win' 
-              ? '赢盘' 
-              : match.teamResult === 'lose' 
-                ? '输盘' 
-                : '走盘';
-            
-            console.log(`${index + 1}. ${statusText} 比分:${match.score} 盘口:${handicapText} 结果:${resultText}`);
-          });
-        } else {
-          console.log('\n未找到亚盘数据记录');
-        }
-        
-        // 输出大小球数据统计结果
-        if (report.totalGoals && report.totalGoals.total > 0) {
-          console.log('\n大小球数据统计:');
-          console.log(`总场次: ${report.totalGoals.total}`);
-          console.log(`大球: ${report.totalGoals.over} (${report.totalGoals.overRate}%)`);
-          console.log(`小球: ${report.totalGoals.under}`);
-          console.log(`走盘: ${report.totalGoals.draw}`);
-          
-          // 输出每场比赛的大小球详情
-          console.log('\n大小球详细记录:');
-          report.totalGoals.matches.forEach((match, index) => {
-            const statusText = match.status === 'home' ? '主场' : '客场';
-            const totalLineText = match.totalLine; 
-            const totalGoalsText = match.totalGoals;
-            const resultText = match.result === 'over' 
-              ? '大球' 
-              : match.result === 'under' 
-                ? '小球' 
-                : '走盘';
-            
-            console.log(`${index + 1}. ${statusText} 比分:${match.score} 总进球:${totalGoalsText} 盘口:${totalLineText} 结果:${resultText}`);
-          });
-        } else {
-          console.log('\n未找到大小球数据记录');
-        }
-        
         // 输出所有上场过的球员信息，按首发数和出场数排序
         console.log('\n所有上场球员信息:');
         const allPlayers = Object.values(report.players)
