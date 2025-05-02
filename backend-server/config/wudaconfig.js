@@ -1,8 +1,8 @@
 const staticData = {
-  leagueSerial: '36',
-  teamSerial: '19',
-  roundSerial: '35',
+  leagueSerial: '15',
+  teamSerial: '16584',
+  roundSerial: '11',
   isNation: false,
-  teamChineseName: '阿森纳'
+  teamChineseName: '光州FC'
 }
 module.exports = staticData

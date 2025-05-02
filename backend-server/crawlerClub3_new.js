@@ -1469,7 +1469,7 @@ class ClubAnalyzer {
           const heightInfo = player.height ? `${player.height}cm` : '--';
           const valueInfo = player.socialStatus ? `${player.socialStatus}万欧元` : '--';
           
-          console.log(`${player.number}-${player.name} ${player.caps}场${player.lineups}首发 ${JSON.stringify(positionsObj)} ${nationInfo} ${ageInfo} ${heightInfo} ${valueInfo}`);
+          console.log(`${player.number}-${player.name} ${player.caps}场${player.lineups}首发 ${player.goals}球${player.assists}助 ${JSON.stringify(positionsObj)} ${nationInfo} ${ageInfo} ${heightInfo} ${valueInfo}`);
         });
         console.log(''); // 添加空行分隔
         
