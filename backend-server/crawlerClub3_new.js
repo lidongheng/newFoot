@@ -20,7 +20,7 @@ class ClubAnalyzer {
    * @param {number} options.roundSerial 准备开打的轮次
    */
   constructor(options = {}) {
-    this.leagueId = options.leagueId || 's36'; // 默认英超
+    this.leagueId = options.leagueId || '36'; // 默认英超
     this.serial = options.serial || null;
     this.isNation = options.isNation || false;
     this.roundSerial = options.roundSerial || null;
@@ -29,6 +29,23 @@ class ClubAnalyzer {
     this.playersData = {}; // 球员数据
     this.formationStats = {}; // 阵型统计
     this.matchDataCache = new Map(); // 缓存已爬取的比赛数据
+    this.teamChineseName = ''; // 球队中文名称
+    // 亚盘数据统计
+    this.asianHandicapStats = {
+      total: 0,
+      win: 0,
+      lose: 0,
+      draw: 0,
+      matches: [] // 每场比赛的亚盘详情
+    };
+    // 大小球数据统计
+    this.totalGoalsStats = {
+      total: 0,
+      over: 0,
+      under: 0,
+      draw: 0,
+      matches: [] // 每场比赛的大小球详情
+    };
   }
 
   /**
@@ -39,12 +56,25 @@ class ClubAnalyzer {
     try {
       // 根据是否为国家队决定使用哪个文件
       const filePrefix = this.isNation ? 'c' : 's';
-      const filePath = path.resolve(__dirname, `match_center/${filePrefix}${this.leagueId}.js`);
+      // 确保leagueId前缀正确
+      const leagueIdWithoutPrefix = this.leagueId.replace(/^[sc]/, '');
+      const filePath = path.resolve(__dirname, `match_center/${filePrefix}${leagueIdWithoutPrefix}.js`);
       
       console.log(`读取联赛数据文件: ${filePath}`);
       
       // 检查文件是否存在
       if (!fs.existsSync(filePath)) {
+        console.error(`联赛数据文件不存在: ${filePath}`);
+        // 尝试列出match_center目录中的文件
+        try {
+          const matchCenterDir = path.resolve(__dirname, 'match_center');
+          if (fs.existsSync(matchCenterDir)) {
+            const files = fs.readdirSync(matchCenterDir);
+            console.log(`match_center目录中的文件: ${files.join(', ')}`);
+          }
+        } catch (e) {
+          console.error(`无法读取match_center目录: ${e.message}`);
+        }
         throw new Error(`联赛数据文件不存在: ${filePath}`);
       }
       
@@ -61,6 +91,15 @@ class ClubAnalyzer {
       executeScript(context.jh, context.arrTeam);
       
       console.log(`成功读取联赛数据文件，共有 ${Object.keys(context.jh).length} 个分组/轮次`);
+      console.log(`成功读取球队数据，共有 ${context.arrTeam.length} 支球队`);
+      
+      // 输出前几个球队数据，帮助调试
+      if (context.arrTeam.length > 0) {
+        console.log('球队数据示例:');
+        context.arrTeam.slice(0, Math.min(5, context.arrTeam.length)).forEach(team => {
+          console.log(`  ID: ${team[0]}, 名称: ${team[1]}`);
+        });
+      }
       
       return {
         matches: context.jh,
@@ -134,11 +173,25 @@ class ClubAnalyzer {
           for (const match of roundMatches) {
             // 检查比赛是否已完成且包含我们要分析的球队
             if (match[2] === -1 && (match[4] === this.serial || match[5] === this.serial)) {
+              // 添加亚盘数据
+              let handicap = match[10] || 0; // 下标为10表示亚盘盘口
+              let score = match[6] || '0-0'; // 下标为6表示比分
+              // 添加大小球盘口数据
+              let totalLine = match[12] || '0'; // 下标为12表示大小球盘口
+              
               matchArr.push({
                 status: match[4] === this.serial ? 'home' : 'guest',
                 matchSerial: match[0],
-                round: roundNumber
+                round: roundNumber,
+                handicap: handicap, // 正数表示主队让球，负数表示客队让球
+                score: score, // 比分，格式为"主队进球-客队进球"
+                totalLine: totalLine // 大小球盘口
               });
+              
+              // 计算亚盘结果
+              this.calculateAsianHandicap(match[4] === this.serial ? 'home' : 'guest', handicap, score);
+              // 计算大小球结果
+              this.calculateTotalGoals(match[4] === this.serial ? 'home' : 'guest', totalLine, score);
             }
           }
         }
@@ -157,12 +210,27 @@ class ClubAnalyzer {
             const match = groupMatches[i];
             // 检查比赛是否已完成且包含我们要分析的球队，且有比分
             if (match[2] === -1 && (match[4] === this.serial || match[5] === this.serial) && match[6] !== '') {
+              // 添加亚盘数据
+              let handicap = match[10] || 0; // 下标为10表示亚盘盘口
+              let score = match[6] || '0-0'; // 下标为6表示比分
+              // 添加大小球盘口数据
+              let totalLine = match[12] || '0'; // 下标为12表示大小球盘口
+              
               matchArr.push({
                 status: match[4] === this.serial ? 'home' : 'guest',
                 matchSerial: match[0],
-                round: matchArr.length + 1  // 使用自增序号作为轮次
+                round: matchArr.length + 1,  // 使用自增序号作为轮次
+                handicap: handicap, // 正数表示主队让球，负数表示客队让球
+                score: score, // 比分，格式为"主队进球-客队进球"
+                totalLine: totalLine // 大小球盘口
               });
-              console.log(`找到匹配的比赛: ${match[0]}, 主客场: ${match[4] === this.serial ? 'home' : 'guest'}, 比分: ${match[6]}`);
+              
+              // 计算亚盘结果
+              this.calculateAsianHandicap(match[4] === this.serial ? 'home' : 'guest', handicap, score);
+              // 计算大小球结果
+              this.calculateTotalGoals(match[4] === this.serial ? 'home' : 'guest', totalLine, score);
+              
+              console.log(`找到匹配的比赛: ${match[0]}, 主客场: ${match[4] === this.serial ? 'home' : 'guest'}, 比分: ${match[6]}, 亚盘盘口: ${handicap}, 大小球盘口: ${totalLine}`);
             }
           }
         }
@@ -172,6 +240,58 @@ class ClubAnalyzer {
     this.matchArr = matchArr;
     console.log(`共找到 ${matchArr.length} 场需要分析的比赛`);
     return matchArr;
+  }
+  
+  /**
+   * 计算亚盘盘口结果
+   * @param {string} status 当前球队是主队还是客队 ('home' 或 'guest')
+   * @param {number} handicap 亚盘盘口值 (正值表示主队让球，负值表示客队让球)
+   * @param {string} score 比分，格式为"主队进球-客队进球"
+   */
+  calculateAsianHandicap(status, handicap, score) {
+    // 默认为0-0，防止空值
+    if (!score) score = '0-0';
+    
+    // 解析比分
+    const scoreArray = score.split('-');
+    const homeGoals = parseInt(scoreArray[0], 10) || 0;
+    const awayGoals = parseInt(scoreArray[1], 10) || 0;
+    
+    // 计算盘口结果（主队进球-客队进球-主队让球）
+    const result = homeGoals - awayGoals - handicap;
+    
+    let handicapResult;
+    if (result > 0) {
+      handicapResult = 'home_win'; // 主队赢盘
+    } else if (result < 0) {
+      handicapResult = 'away_win'; // 客队赢盘
+    } else {
+      handicapResult = 'draw'; // 走盘
+    }
+    
+    // 确定当前分析的球队是赢盘还是输盘
+    let teamResult;
+    if (handicapResult === 'draw') {
+      teamResult = 'draw'; // 走盘
+    } else if ((status === 'home' && handicapResult === 'home_win') ||
+               (status === 'guest' && handicapResult === 'away_win')) {
+      teamResult = 'win'; // 当前分析的球队赢盘
+    } else {
+      teamResult = 'lose'; // 当前分析的球队输盘
+    }
+    
+    // 更新亚盘统计数据
+    this.asianHandicapStats.total++;
+    this.asianHandicapStats[teamResult]++;
+    
+    // 保存比赛亚盘详情
+    this.asianHandicapStats.matches.push({
+      score: score,
+      handicap: handicap,
+      status: status,
+      handicapResult: handicapResult,
+      teamResult: teamResult
+    });
   }
 
   /**
@@ -312,7 +432,12 @@ class ClubAnalyzer {
           status,
           formation,
           players,
-          round: matchInfo.round
+          round: matchInfo.round,
+          // 添加亚盘数据和比分数据
+          handicap: matchInfo.handicap || 0,
+          score: matchInfo.score || '0-0',
+          // 添加大小球数据
+          totalLine: matchInfo.totalLine || '0'
         };
         
         // 将数据保存到缓存
@@ -491,6 +616,43 @@ class ClubAnalyzer {
         }
       }
     }
+    
+    // 从matchArr中查找当前比赛的亚盘数据
+    const matchInfo = this.matchArr.find(m => m.matchSerial === matchData.id);
+    const handicapData = matchInfo ? {
+      handicap: matchInfo.handicap,
+      score: matchInfo.score,
+      status: matchInfo.status
+    } : null;
+    
+    // 获取亚盘结果，如果有
+    let handicapResult = null;
+    if (handicapData) {
+      const matchHandicapInfo = this.asianHandicapStats.matches.find(m => 
+        m.score === handicapData.score && 
+        m.handicap === handicapData.handicap && 
+        m.status === handicapData.status
+      );
+      handicapResult = matchHandicapInfo ? matchHandicapInfo.teamResult : null;
+    }
+    
+    // 从matchArr中查找当前比赛的大小球数据
+    const totalLineData = matchInfo ? {
+      totalLine: matchInfo.totalLine,
+      score: matchInfo.score,
+      status: matchInfo.status
+    } : null;
+    
+    // 获取大小球结果，如果有
+    let totalGoalsResult = null;
+    if (totalLineData) {
+      const matchTotalGoalsInfo = this.totalGoalsStats.matches.find(m => 
+        m.score === totalLineData.score && 
+        m.totalLine === totalLineData.totalLine && 
+        m.status === totalLineData.status
+      );
+      totalGoalsResult = matchTotalGoalsInfo ? matchTotalGoalsInfo.result : null;
+    }
 
     for (const player of matchData.players) {
       // 依据是否为国家队使用不同的球员匹配方式
@@ -610,7 +772,7 @@ class ClubAnalyzer {
       
       playerData.minutesPlayed += minutesPlayed;
       
-      // 记录比赛信息
+      // 记录比赛信息，添加亚盘数据
       this.playersData[playerKey].matches.push({
         id: matchData.id,
         round: matchData.round,
@@ -618,7 +780,13 @@ class ClubAnalyzer {
         caps: player.caps,
         lineups: player.lineups,
         goals: player.goals,
-        assists: player.assists
+        assists: player.assists,
+        handicap: handicapData ? handicapData.handicap : null,
+        score: handicapData ? handicapData.score : null,
+        handicapResult: handicapResult,
+        // 添加大小球数据
+        totalLine: totalLineData ? totalLineData.totalLine : null,
+        totalGoalsResult: totalGoalsResult
       });
     }
   }
@@ -821,17 +989,45 @@ class ClubAnalyzer {
       id: this.isNation ? player.name : `${player.number}`
     }));
     
+    // 计算亚盘胜率
+    const handicapWinRate = this.asianHandicapStats.total > 0 
+      ? (this.asianHandicapStats.win / this.asianHandicapStats.total * 100).toFixed(2) 
+      : 0;
+    
+    // 计算大球率
+    const overRate = this.totalGoalsStats.total > 0 
+      ? (this.totalGoalsStats.over / this.totalGoalsStats.total * 100).toFixed(2) 
+      : 0;
+    
     // 从记录的数据中创建球队报告
     return {
       teamId: this.serial,
+      teamChineseName: this.teamChineseName, // 添加球队中文名称
       isNation: this.isNation,
       analysisDate: new Date(),
       mostUsedFormation,
       recommendedLineup,
       players: this.playersData,
-      formationStats: this.formationStats
+      formationStats: this.formationStats,
+      // 添加亚盘数据到报告中
+      asianHandicap: {
+        total: this.asianHandicapStats.total,
+        win: this.asianHandicapStats.win,
+        lose: this.asianHandicapStats.lose,
+        draw: this.asianHandicapStats.draw,
+        winRate: handicapWinRate,
+        matches: this.asianHandicapStats.matches
+      },
+      // 添加大小球数据到报告中
+      totalGoals: {
+        total: this.totalGoalsStats.total,
+        over: this.totalGoalsStats.over,
+        under: this.totalGoalsStats.under,
+        draw: this.totalGoalsStats.draw,
+        overRate: overRate,
+        matches: this.totalGoalsStats.matches
+      }
     };
-
   }
   
   /**
@@ -846,6 +1042,21 @@ class ClubAnalyzer {
       // 1. 读取联赛数据
       const leagueData = await this.readLeagueData();
       console.log(`成功读取${this.isNation ? '国际赛事' : '联赛'}数据`);
+      
+      // 1.1 获取球队中文名称
+      if (leagueData.teams) {
+        this.getTeamChineseName(leagueData.teams);
+      }
+      
+      // 1.2 如果仍未获取到球队中文名称，尝试使用额外方法
+      if (!this.teamChineseName) {
+        await this.tryLoadTeamChineseName();
+      }
+      
+      // 1.3 如果仍未获取到中文名称，尝试为一些常见的球队手动设置
+      if (!this.teamChineseName) {
+        this.setDefaultTeamChineseName();
+      }
       
       // 2. 读取球队数据
       this.teamData = await this.readTeamData();
@@ -889,10 +1100,10 @@ class ClubAnalyzer {
         console.warn(`加载球员额外数据失败: ${error.message}`);
       }
 
-      // 5. 生成分析报告
+      // 6. 生成分析报告
       const report = this.generateTeamReport();
 
-      // 6. 保存分析结果
+      // 7. 保存分析结果
       const outputPath = path.resolve(__dirname, `player_center/${this.serial}-new.json`);
       this.saveResults(report, outputPath);
 
@@ -998,6 +1209,233 @@ class ClubAnalyzer {
   }
 
   /**
+   * 计算大小球盘口结果
+   * @param {string} status 当前球队是主队还是客队 ('home' 或 'guest')
+   * @param {string} totalLine 大小球盘口值 (如 "3" 或 "3/3.5")
+   * @param {string} score 比分，格式为"主队进球-客队进球"
+   */
+  calculateTotalGoals(status, totalLine, score) {
+    // 默认为0-0，防止空值
+    if (!score) score = '0-0';
+    
+    // 解析比分
+    const scoreArray = score.split('-');
+    const homeGoals = parseInt(scoreArray[0], 10) || 0;
+    const awayGoals = parseInt(scoreArray[1], 10) || 0;
+    const totalGoals = homeGoals + awayGoals;
+    
+    // 解析大小球盘口
+    let totalLineValue = 0;
+    if (totalLine) {
+      // 处理类似 "3/3.5" 这样的盘口
+      if (totalLine.includes('/')) {
+        const [lower, upper] = totalLine.split('/');
+        totalLineValue = (parseFloat(lower) + parseFloat(upper)) / 2;
+      } else {
+        totalLineValue = parseFloat(totalLine);
+      }
+    }
+    
+    // 计算盘口结果（总进球数-盘口值）
+    const result = totalGoals - totalLineValue;
+    
+    let totalGoalsResult;
+    if (result > 0) {
+      totalGoalsResult = 'over'; // 大球
+    } else if (result < 0) {
+      totalGoalsResult = 'under'; // 小球
+    } else {
+      totalGoalsResult = 'draw'; // 走盘
+    }
+    
+    // 更新大小球统计数据
+    this.totalGoalsStats.total++;
+    this.totalGoalsStats[totalGoalsResult]++;
+    
+    // 保存比赛大小球详情
+    this.totalGoalsStats.matches.push({
+      score: score,
+      totalLine: totalLine,
+      totalLineValue: totalLineValue,
+      status: status,
+      totalGoals: totalGoals,
+      result: totalGoalsResult
+    });
+    
+    return totalGoalsResult;
+  }
+
+  /**
+   * 从联赛数据中获取球队中文名称
+   * @param {Array} teams 球队数据数组
+   */
+  getTeamChineseName(teams) {
+    if (!Array.isArray(teams) || !this.serial) {
+      return '';
+    }
+    
+    // 在球队数组中查找匹配的球队序号，确保进行类型转换比较
+    const team = teams.find(team => String(team[0]) === String(this.serial));
+    if (team && team[1]) {
+      this.teamChineseName = team[1];
+      console.log(`球队中文名称: ${this.teamChineseName}`);
+      return team[1];
+    }
+    
+    // 如果没找到匹配项，尝试输出一些调试信息
+    console.warn(`找不到序号为 ${this.serial} 的球队中文名称`);
+    console.log(`可用的球队序号: ${teams.map(t => t[0]).join(', ')}`);
+    return '';
+  }
+
+  /**
+   * 尝试加载球队中文名称，通过尝试多个可能的文件
+   * 由于文件命名可能存在差异，我们尝试几种常见的格式
+   */
+  async tryLoadTeamChineseName() {
+    // 如果已经有球队中文名称，则直接返回
+    if (this.teamChineseName) {
+      return this.teamChineseName;
+    }
+    
+    // 没有球队序号则无法加载
+    if (!this.serial) {
+      return '';
+    }
+    
+    console.log('尝试加载球队中文名称...');
+    
+    // 尝试的文件路径格式
+    const formats = this.isNation ? 
+      ['c${id}', 'c${id}', 'cnation${id}'] : 
+      ['s${id}', 's${id}.js', 'sleague${id}', 'sleague${id}.js', '${id}', '${id}.js'];
+    
+    // 尝试的ID格式
+    const idFormats = [
+      this.leagueId,
+      this.leagueId.replace(/^[sc]/, ''),
+      this.leagueId.replace(/^sleague/, '').replace(/^s/, '')
+    ];
+    
+    // 尝试所有可能的组合
+    for (const format of formats) {
+      for (const id of idFormats) {
+        try {
+          // 构建可能的文件路径
+          const fileName = format.replace('${id}', id);
+          const filePath = path.resolve(__dirname, `match_center/${fileName}`);
+          
+          console.log(`尝试读取文件: ${filePath}`);
+          
+          if (!fs.existsSync(filePath)) {
+            // 如果文件不存在，尝试添加.js后缀
+            if (!filePath.endsWith('.js') && fs.existsSync(`${filePath}.js`)) {
+              const fileWithExt = `${filePath}.js`;
+              console.log(`找到文件: ${fileWithExt}`);
+              
+              const fileContent = fs.readFileSync(fileWithExt, 'utf8');
+              const context = { jh: {}, arrTeam: [] };
+              const executeScript = new Function('jh', 'arrTeam', fileContent);
+              executeScript(context.jh, context.arrTeam);
+              
+              // 在球队数组中查找匹配的球队序号
+              const team = context.arrTeam.find(team => String(team[0]) === String(this.serial));
+              if (team && team[1]) {
+                this.teamChineseName = team[1];
+                console.log(`从文件 ${fileWithExt} 找到球队中文名称: ${this.teamChineseName}`);
+                return this.teamChineseName;
+              }
+            }
+            continue;
+          }
+          
+          const fileContent = fs.readFileSync(filePath, 'utf8');
+          const context = { jh: {}, arrTeam: [] };
+          const executeScript = new Function('jh', 'arrTeam', fileContent);
+          executeScript(context.jh, context.arrTeam);
+          
+          // 在球队数组中查找匹配的球队序号
+          const team = context.arrTeam.find(team => String(team[0]) === String(this.serial));
+          if (team && team[1]) {
+            this.teamChineseName = team[1];
+            console.log(`从文件 ${filePath} 找到球队中文名称: ${this.teamChineseName}`);
+            return this.teamChineseName;
+          }
+        } catch (error) {
+          // 忽略错误，尝试下一个文件
+          console.log(`读取文件失败: ${error.message}`);
+        }
+      }
+    }
+    
+    console.warn(`尝试所有可能的文件后仍找不到球队中文名称`);
+    return '';
+  }
+
+  /**
+   * 为常见的球队手动设置中文名称
+   * 当无法从文件中获取时使用
+   */
+  setDefaultTeamChineseName() {
+    // 常见英超球队的中文名称映射
+    const premierLeagueTeams = {
+      '1': '阿森纳',
+      '2': '阿斯顿维拉',
+      '3': '伯恩茅斯',
+      '4': '布伦特福德',
+      '5': '布莱顿',
+      '6': '伯恩利',
+      '7': '切尔西',
+      '8': '水晶宫',
+      '9': '埃弗顿',
+      '10': '富勒姆',
+      '11': '利物浦',
+      '12': '卢顿',
+      '13': '曼城',
+      '14': '曼联',
+      '15': '纽卡斯尔联',
+      '16': '诺丁汉森林',
+      '17': '谢菲尔德联',
+      '18': '南安普顿',
+      '19': '热刺',
+      '20': '西汉姆联',
+      '21': '狼队',
+      '22': '伯明翰',
+      '23': '布莱克本',
+      '24': '切尔西',
+      '25': '雷丁',
+      '26': '普雷斯顿',
+      '27': '女王公园巡游者',
+      '28': '谢菲尔德联',
+      '29': '斯托克城',
+      '30': '桑德兰',
+      '31': '斯旺西',
+      '32': '沃特福德',
+      '33': '西布朗',
+      '34': '维冈竞技',
+      '35': '伯恩茅斯',
+      '36': '布莱顿',
+      '37': '布伦特福德',
+      '38': '卡迪夫城',
+      '39': '考文垂',
+      '40': '德比郡'
+    };
+
+    // 如果是英超球队
+    if (this.leagueId === '36' || this.leagueId === 's36') {
+      if (premierLeagueTeams[this.serial]) {
+        this.teamChineseName = premierLeagueTeams[this.serial];
+        console.log(`使用默认中文名称: ${this.teamChineseName}`);
+        return;
+      }
+    }
+
+    // 如果未能匹配到，使用"球队"加序号作为名称
+    this.teamChineseName = `球队${this.serial}`;
+    console.log(`未找到匹配，使用默认名称: ${this.teamChineseName}`);
+  }
+
+  /**
    * 主入口点方法
    * @param {Object} options 分析选项
    * @param {string} options.leagueId 联赛ID
@@ -1017,8 +1455,64 @@ class ClubAnalyzer {
     return analyzer.analyze()
       .then(report => {
         console.log('分析完成!');
+        console.log(`球队: ${report.teamChineseName || report.teamId} (序号:${report.teamId})`);
         console.log(`最常用阵型: ${report.mostUsedFormation}`);
         console.log(`分析球员数量: ${Object.keys(report.players).length}`);
+        
+        // 输出亚盘数据统计结果
+        if (report.asianHandicap && report.asianHandicap.total > 0) {
+          console.log('\n亚盘数据统计:');
+          console.log(`总场次: ${report.asianHandicap.total}`);
+          console.log(`赢盘: ${report.asianHandicap.win} (${report.asianHandicap.winRate}%)`);
+          console.log(`输盘: ${report.asianHandicap.lose}`);
+          console.log(`走盘: ${report.asianHandicap.draw}`);
+          
+          // 输出每场比赛的亚盘详情
+          console.log('\n亚盘详细记录:');
+          report.asianHandicap.matches.forEach((match, index) => {
+            const statusText = match.status === 'home' ? '主场' : '客场';
+            const handicapText = match.handicap > 0 
+              ? `主队让${match.handicap}球` 
+              : match.handicap < 0 
+                ? `主队受${Math.abs(match.handicap)}球` 
+                : '平手盘';
+            const resultText = match.teamResult === 'win' 
+              ? '赢盘' 
+              : match.teamResult === 'lose' 
+                ? '输盘' 
+                : '走盘';
+            
+            console.log(`${index + 1}. ${statusText} 比分:${match.score} 盘口:${handicapText} 结果:${resultText}`);
+          });
+        } else {
+          console.log('\n未找到亚盘数据记录');
+        }
+        
+        // 输出大小球数据统计结果
+        if (report.totalGoals && report.totalGoals.total > 0) {
+          console.log('\n大小球数据统计:');
+          console.log(`总场次: ${report.totalGoals.total}`);
+          console.log(`大球: ${report.totalGoals.over} (${report.totalGoals.overRate}%)`);
+          console.log(`小球: ${report.totalGoals.under}`);
+          console.log(`走盘: ${report.totalGoals.draw}`);
+          
+          // 输出每场比赛的大小球详情
+          console.log('\n大小球详细记录:');
+          report.totalGoals.matches.forEach((match, index) => {
+            const statusText = match.status === 'home' ? '主场' : '客场';
+            const totalLineText = match.totalLine; 
+            const totalGoalsText = match.totalGoals;
+            const resultText = match.result === 'over' 
+              ? '大球' 
+              : match.result === 'under' 
+                ? '小球' 
+                : '走盘';
+            
+            console.log(`${index + 1}. ${statusText} 比分:${match.score} 总进球:${totalGoalsText} 盘口:${totalLineText} 结果:${resultText}`);
+          });
+        } else {
+          console.log('\n未找到大小球数据记录');
+        }
         
         // 输出所有上场过的球员信息，按首发数和出场数排序
         console.log('\n所有上场球员信息:');
@@ -1091,7 +1585,7 @@ if (require.main === module) {
   try {
     const staticData = require('./config/wudaconfig');
     const options = {
-      leagueId: staticData.leagueSerial || 's36', // 默认英超
+      leagueId: staticData.leagueSerial || '36', // 默认英超
       serial: Number(staticData.teamSerial) || 24, // 默认切尔西
       isNation: staticData.isNation || false, // 默认非国家队
       roundSerial: Number(staticData.roundSerial) || null // 准备开打的轮次
